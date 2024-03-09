@@ -7,6 +7,7 @@ namespace MyOssHours.Backend.Domain.Users;
 /// </summary>
 public class UserId : EntityId
 {
+    public static UserId Empty => new UserId(Guid.Empty);
     public UserId()
     {
     }

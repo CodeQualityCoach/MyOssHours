@@ -8,6 +8,7 @@ namespace MyOssHours.Backend.Domain.Projects;
 /// </summary>
 public class WorkItemId : EntityId
 {
+    public static WorkItemId Empty => new WorkItemId(Guid.Empty);
     public WorkItemId()
     {
     }

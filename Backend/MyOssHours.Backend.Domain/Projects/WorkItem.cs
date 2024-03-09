@@ -30,6 +30,10 @@ public class WorkItem
 
     public static WorkItem Create(WorkItemId id, ProjectId project, string name, string description, IEnumerable<ProjectHour>? projectHours = null)
     {
+        if (id is null) throw new ArgumentNullException(nameof(id));
+        if (project is null) throw new ArgumentNullException(nameof(project));
+        if (string.IsNullOrWhiteSpace(name)) throw new ArgumentNullException(nameof(name));
+
         return new WorkItem(id, project, name, description, projectHours);
     }
 }

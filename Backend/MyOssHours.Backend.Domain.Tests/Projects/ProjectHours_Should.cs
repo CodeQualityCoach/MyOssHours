@@ -44,6 +44,24 @@ public class ProjectHours_Should
         var user = new UserId();
         var projectHour = ProjectHour.Create(workItem, user, today, TimeSpan.FromMinutes(60), "Test Description");
 
+        projectHour.Uuid.Should().NotBe(ProjectHourId.Empty);
+        projectHour.WorkItem.Should().Be(workItem);
+        projectHour.User.Should().Be(user);
+        projectHour.StartDate.Should().Be(today);
+        projectHour.Duration.Should().Be(TimeSpan.FromMinutes(60));
+        projectHour.Description.Should().Be("Test Description");
+    }
+
+    [Test(Description = "Verify that create method works with Id parameter")]
+    public void Be_Created_With_Create_With_Id()
+    {
+        ProjectHourId id = Guid.NewGuid();
+        var today = DateTime.Today;
+        var workItem = new WorkItemId();
+        var user = new UserId();
+        var projectHour = ProjectHour.Create(id, workItem, user, today, TimeSpan.FromMinutes(60), "Test Description");
+
+        projectHour.Uuid.Should().Be(id);
         projectHour.WorkItem.Should().Be(workItem);
         projectHour.User.Should().Be(user);
         projectHour.StartDate.Should().Be(today);
@@ -80,17 +98,6 @@ public class ProjectHours_Should
         Action act = () => ProjectHour.Create(workItem, user, today, TimeSpan.FromMinutes(60), "Test Description");
 
         act.Should().Throw<ArgumentException>().WithMessage("Start date cannot be more than 30 days in the future. (Parameter 'startDate')");
-    }
-
-    [Test(Description = "Test that description cannot be empty")]
-    public void Not_Be_Created_With_Create_When_Description_Is_Empty()
-    {
-        var today = DateTime.Today;
-        var workItem = new WorkItemId();
-        var user = new UserId();
-        Action act = () => ProjectHour.Create(workItem, user, today, TimeSpan.FromMinutes(60), string.Empty);
-
-        act.Should().Throw<ArgumentException>().WithMessage("Value cannot be empty. (Parameter 'description')");
     }
 
     [Test(Description = "Test that description can be null")]

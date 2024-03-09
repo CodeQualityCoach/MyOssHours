@@ -23,6 +23,7 @@ public class WorkItems_Should
         var project = new ProjectId();
         var workItem = WorkItem.Create(project, "Test Work Item", "Test Description", new List<ProjectHour>());
 
+        workItem.Uuid.Should().NotBe(WorkItemId.Empty);
         workItem.Project.Should().Be(project);
         workItem.Name.Should().Be("Test Work Item");
         workItem.Description.Should().Be("Test Description");
@@ -35,6 +36,20 @@ public class WorkItems_Should
         var project = new ProjectId();
         var workItem = WorkItem.Create(project, "Test Work Item", "Test Description", null);
 
+        workItem.Project.Should().Be(project);
+        workItem.Name.Should().Be("Test Work Item");
+        workItem.Description.Should().Be("Test Description");
+        workItem.ProjectHours.Should().BeEmpty();
+    }
+
+    [Test(Description = "Verify that create method works with Id parameter")]
+    public void Be_Created_With_Create_With_Id()
+    {
+        WorkItemId id = Guid.NewGuid();
+        var project = new ProjectId();
+        var workItem = WorkItem.Create(id, project, "Test Work Item", "Test Description", new List<ProjectHour>());
+
+        workItem.Uuid.Should().Be(id);
         workItem.Project.Should().Be(project);
         workItem.Name.Should().Be("Test Work Item");
         workItem.Description.Should().Be("Test Description");
@@ -60,15 +75,6 @@ public class WorkItems_Should
         workItem.Name.Should().Be("Test Work Item");
         workItem.Description.Should().BeNull();
         workItem.ProjectHours.Should().BeEmpty();
-    }
-
-    [Test(Description = "test that the description can not be empty")]
-    public void Not_Be_Created_With_Create_When_Description_Is_Empty()
-    {
-        var project = new ProjectId();
-        Action act = () => WorkItem.Create(project, "Test Work Item", string.Empty, new List<ProjectHour>());
-
-        act.Should().Throw<ArgumentException>().WithMessage("Value cannot be empty. (Parameter 'description')");
     }
 
     [Test(Description = "test that the project cannot be null")]

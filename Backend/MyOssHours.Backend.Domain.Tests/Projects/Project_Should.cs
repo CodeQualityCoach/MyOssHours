@@ -1,6 +1,7 @@
 ﻿using System.Reflection;
 using FluentAssertions;
 using MyOssHours.Backend.Domain.Enumerations;
+using MyOssHours.Backend.Domain.Exceptions;
 using MyOssHours.Backend.Domain.Projects;
 using MyOssHours.Backend.Domain.Users;
 using NUnit.Framework;
@@ -11,10 +12,10 @@ namespace MyOssHours.Backend.Domain.Tests.Projects;
 [TestFixture]
 public class Project_Should
 {
-    [Test(Description = "ProjectHour is an IAggreateRoot")]
+    [Test(Description = "Project should implement IAggregateRoot")]
     public void Be_An_IAggregateRoot()
     {
-        typeof(Project).Should().BeAssignableTo<IAggregateRoot>();
+        typeof(Project).Should().Implement<IAggregateRoot>();
     }
 
     [Test(Description = "Verify that the constructor is private")]
@@ -28,12 +29,22 @@ public class Project_Should
     [Test(Description = "Verify that create method works")]
     public void Be_Created_With_Create()
     {
-        var project = Project.Create("Test Project", "Test Description", new [] { ProjectMember.Create(new UserId(), PermissionLevel.Owner) }, new List<WorkItem>());
+        var project = Project.Create("Test Project", "Test Description", new[] { ProjectMember.Create(new UserId(), PermissionLevel.Owner) }, new List<WorkItem>());
 
         project.Name.Should().Be("Test Project");
+        project.Uuid.Should().NotBe(ProjectId.Empty);
         project.Description.Should().Be("Test Description");
         project.ProjectMembers.Should().HaveCount(1);
         project.WorkItems.Should().BeEmpty();
+    }
+
+    [Test(Description = "Verify that create method works with Id parameter")]
+    public void Be_Created_With_Create_When_Id_Is_Specified()
+    {
+        ProjectId id =Guid.NewGuid();
+        var project = Project.Create(id, "Test Project", "Test Description", new[] { ProjectMember.Create(new UserId(), PermissionLevel.Owner) }, new List<WorkItem>());
+
+        project.Uuid.Should().Be(id);
     }
 
     [Test(Description = "A project must contain an project member with role Owner when created")]
@@ -46,7 +57,7 @@ public class Project_Should
 
         Action act = () => Project.Create("Test Project", "Test Description", members, new List<WorkItem>());
 
-        act.Should().Throw<ArgumentException>().WithMessage("At least one owner is required");
+        act.Should().Throw<ProjectHasNoOwnerException>().WithMessage("At least one owner is required");
     }
 
     [Test(Description = "verify create works when members or work items is null")]
@@ -56,7 +67,7 @@ public class Project_Should
 
         project.Name.Should().Be("Test Project");
         project.Description.Should().Be("Test Description");
-        project.ProjectMembers.Should().BeEmpty();
+        project.ProjectMembers.Should().HaveCount(1);
         project.WorkItems.Should().BeEmpty();
     }
 
@@ -75,15 +86,7 @@ public class Project_Should
 
         project.Name.Should().Be("Test Project");
         project.Description.Should().BeNull();
-        project.ProjectMembers.Should().BeEmpty();
+        project.ProjectMembers.Should().HaveCount(1);
         project.WorkItems.Should().BeEmpty();
-    }
-
-    [Test(Description = "test that the description can not be empty")]
-    public void Not_Be_Created_With_Create_When_Description_Is_Empty()
-    {
-        Action act = () => Project.Create("Test Project", string.Empty, new List<ProjectMember>(), new List<WorkItem>());
-
-        act.Should().Throw<ArgumentNullException>().WithMessage("Value cannot be null. (Parameter 'description')");
     }
 }

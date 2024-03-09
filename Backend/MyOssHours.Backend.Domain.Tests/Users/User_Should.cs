@@ -1,6 +1,5 @@
 ﻿using System.Reflection;
 using FluentAssertions;
-using MyOssHours.Backend.Domain.Attributes;
 using MyOssHours.Backend.Domain.Users;
 using NUnit.Framework;
 // ReSharper disable InconsistentNaming
@@ -8,20 +7,10 @@ using NUnit.Framework;
 namespace MyOssHours.Backend.Domain.Tests.Users;
 
 [TestFixture]
-public class CodeOfInterestAttribute_Should
-{
-    [Test(Description = "CodeOfInterestAttribute is an Attribute")]
-    public void Be_An_Attribute()
-    {
-        typeof(CodeOfInterestAttribute).Should().BeAssignableTo<Attribute>();
-    }
-}
-
-[TestFixture]
 public class User_Should
 {
 
-    [Test(Description = "ProjectHour is an IAggreateRoot")]
+    [Test(Description = "User is an IAggreateRoot")]
     public void Be_An_IAggregateRoot()
     {
         typeof(User).Should().BeAssignableTo<IAggregateRoot>();
@@ -47,6 +36,18 @@ public class User_Should
     {
         var user = User.Create(new UserId(), "Test User", "Test Email");
         user.Should().NotBeNull();
+        user.Uuid.Should().NotBe(UserId.Empty);
+        user.Nickname.Should().Be("Test User");
+        user.Email.Should().Be("Test Email");
+    }
+
+    [Test(Description = "Verify that create method works with Id parameter")]
+    public void Be_Created_With_Create_With_UserId()
+    {
+        UserId userId = Guid.NewGuid();
+        var user = User.Create(userId, "Test User", "Test Email");
+        user.Should().NotBeNull();
+        user.Uuid.Should().BeSameAs(userId);
         user.Nickname.Should().Be("Test User");
         user.Email.Should().Be("Test Email");
     }

@@ -18,6 +18,11 @@ public class User : IAggregateRoot
 
     public static User Create(UserId id, string nickname, string email)
     {
+        if (nickname is null)
+            throw new ArgumentException("Nickname cannot be null or empty");
+        if (email is null)
+            throw new ArgumentException("Email cannot be null or empty");
+
         return new User(id, nickname, email);
     }
 }

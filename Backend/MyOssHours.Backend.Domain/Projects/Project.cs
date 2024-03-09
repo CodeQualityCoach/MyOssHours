@@ -1,9 +1,12 @@
-﻿namespace MyOssHours.Backend.Domain.Projects;
+﻿using MyOssHours.Backend.Domain.Enumerations;
+using MyOssHours.Backend.Domain.Exceptions;
+
+namespace MyOssHours.Backend.Domain.Projects;
 
 /// <summary>
 ///     This is the domain model for the project
 /// </summary>
-public class Project
+public class Project : IAggregateRoot
 {
     private Project(ProjectId uuid, string name, string? description)
     {
@@ -30,13 +33,15 @@ public class Project
     }
 
     public static Project Create(
-        ProjectId id, string name, string? description,
+        ProjectId id, string name, string description,
         IEnumerable<ProjectMember> members,
         IEnumerable<WorkItem>? workItems = null)
     {
+        if (name == null) throw new ArgumentNullException(nameof(name));
+
         var projectMembers = members as ProjectMember[] ?? members.ToArray();
-        //if (projectMembers.FirstOrDefault(x => x.Role == PermissionLevel.Owner) == null)
-        //    throw new ArgumentException("At least one owner is required");
+        if (projectMembers.FirstOrDefault(x => x.Role == PermissionLevel.Owner) == null)
+            throw new ProjectHasNoOwnerException();
 
         return new Project(id, name, description)
         {

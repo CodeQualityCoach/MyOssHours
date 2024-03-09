@@ -15,8 +15,10 @@ public class ProjectMember
     public PermissionLevel Role { get; }
 
     // create method
-    public static ProjectMember Create(UserId userId, PermissionLevel role)
+    internal static ProjectMember Create(UserId userId, PermissionLevel role)
     {
+        if (userId is null) throw new ArgumentNullException(nameof(userId));
+
         return new ProjectMember(userId, role);
     }
 }

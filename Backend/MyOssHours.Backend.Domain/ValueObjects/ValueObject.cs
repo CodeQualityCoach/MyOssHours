@@ -1,10 +1,12 @@
-﻿using MyOssHours.Backend.Domain.Attributes;
+﻿using System.Diagnostics.CodeAnalysis;
+using MyOssHours.Backend.Domain.Attributes;
 
 namespace MyOssHours.Backend.Domain.ValueObjects;
 
 /// <summary>
 ///     ValueObject is a class from the DDD book by Eric Evans
 /// </summary>
+[ExcludeFromCodeCoverage()]
 [CodeOfInterest("Implements a value object according to the DDD book from Eric Evans")]
 public abstract class ValueObject
 {
