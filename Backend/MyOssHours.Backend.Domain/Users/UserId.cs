@@ -1,4 +1,4 @@
-﻿using MyOssHours.Backend.Domain.ValueObjects;
+﻿using MyOssHours.Backend.Domain.Core;
 
 namespace MyOssHours.Backend.Domain.Users;
 

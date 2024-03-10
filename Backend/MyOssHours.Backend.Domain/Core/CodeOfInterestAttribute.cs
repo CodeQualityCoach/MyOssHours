@@ -1,4 +1,4 @@
-﻿namespace MyOssHours.Backend.Domain.Attributes;
+﻿namespace MyOssHours.Backend.Domain.Core;
 
 [AttributeUsage(AttributeTargets.All)]
 public class CodeOfInterestAttribute : Attribute

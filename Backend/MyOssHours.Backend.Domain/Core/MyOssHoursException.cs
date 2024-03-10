@@ -1,4 +1,4 @@
-﻿namespace MyOssHours.Backend.Domain.Exceptions;
+﻿namespace MyOssHours.Backend.Domain.Core;
 
 public class MyOssHoursException : Exception
 {

@@ -1,9 +1,10 @@
 ﻿using FluentAssertions;
-using MyOssHours.Backend.Domain.Exceptions;
+using MyOssHours.Backend.Domain.Core;
 using NUnit.Framework;
+
 // ReSharper disable InconsistentNaming
 
-namespace MyOssHours.Backend.Domain.Tests.Exceptions;
+namespace MyOssHours.Backend.Domain.Tests.Core;
 
 [TestFixture]
 internal class MyOssHoursException_Should
@@ -13,5 +14,6 @@ internal class MyOssHoursException_Should
     {
         var exception = new MyOssHoursException("Test");
         exception.Should().BeAssignableTo<Exception>();
+        exception.Message.Should().Be("Test");
     }
 }

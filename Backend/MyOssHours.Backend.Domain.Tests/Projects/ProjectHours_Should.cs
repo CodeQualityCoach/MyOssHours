@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using FluentAssertions;
+using MyOssHours.Backend.Domain.Core;
 using MyOssHours.Backend.Domain.Projects;
 using MyOssHours.Backend.Domain.Users;
 using NUnit.Framework;

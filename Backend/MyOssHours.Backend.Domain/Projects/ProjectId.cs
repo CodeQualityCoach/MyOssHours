@@ -1,5 +1,4 @@
-﻿using MyOssHours.Backend.Domain.Attributes;
-using MyOssHours.Backend.Domain.ValueObjects;
+﻿using MyOssHours.Backend.Domain.Core;
 
 namespace MyOssHours.Backend.Domain.Projects;
 

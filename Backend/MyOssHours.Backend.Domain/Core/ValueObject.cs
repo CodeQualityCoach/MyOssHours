@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
-using MyOssHours.Backend.Domain.Attributes;
 
-namespace MyOssHours.Backend.Domain.ValueObjects;
+namespace MyOssHours.Backend.Domain.Core;
 
 /// <summary>
 ///     ValueObject is a class from the DDD book by Eric Evans

@@ -28,3 +28,8 @@
 
 	* Use of exceptions base class for domain errors
 	* Validation errors in the domain are thrown as exceptions
+
+## Validation
+
+    * Validation is either done in the aggregate root or injected
+	* For validation injection, a lambda is used

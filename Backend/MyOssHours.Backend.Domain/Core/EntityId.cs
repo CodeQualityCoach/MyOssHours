@@ -1,6 +1,4 @@
-﻿using MyOssHours.Backend.Domain.Attributes;
-
-namespace MyOssHours.Backend.Domain.ValueObjects;
+﻿namespace MyOssHours.Backend.Domain.Core;
 
 /// <summary>
 ///     Abstract Value Object for all EntityId

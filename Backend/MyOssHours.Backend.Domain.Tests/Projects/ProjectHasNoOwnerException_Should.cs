@@ -1,9 +1,10 @@
 ﻿using FluentAssertions;
-using MyOssHours.Backend.Domain.Exceptions;
+using MyOssHours.Backend.Domain.Core;
+using MyOssHours.Backend.Domain.Projects;
 using NUnit.Framework;
 // ReSharper disable InconsistentNaming
 
-namespace MyOssHours.Backend.Domain.Tests.Exceptions;
+namespace MyOssHours.Backend.Domain.Tests.Projects;
 
 [TestFixture]
 internal class ProjectHasNoOwnerException_Should

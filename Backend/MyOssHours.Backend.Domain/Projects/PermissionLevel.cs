@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics.CodeAnalysis;
 
-namespace MyOssHours.Backend.Domain.Enumerations;
+namespace MyOssHours.Backend.Domain.Projects;
 
 [Flags]
 public enum PermissionLevel

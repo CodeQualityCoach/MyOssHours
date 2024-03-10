@@ -1,4 +1,6 @@
-﻿namespace MyOssHours.Backend.Domain.Exceptions;
+﻿using MyOssHours.Backend.Domain.Core;
+
+namespace MyOssHours.Backend.Domain.Projects;
 
 public class ProjectHasNoOwnerException : MyOssHoursException
 {

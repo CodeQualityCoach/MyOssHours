@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using FluentAssertions;
+using MyOssHours.Backend.Domain.Core;
 using MyOssHours.Backend.Domain.Users;
 using NUnit.Framework;
 // ReSharper disable InconsistentNaming
@@ -10,7 +11,7 @@ namespace MyOssHours.Backend.Domain.Tests.Users;
 public class User_Should
 {
 
-    [Test(Description = "User is an IAggreateRoot")]
+    [Test(Description = "User is an IAggregateRoot")]
     public void Be_An_IAggregateRoot()
     {
         typeof(User).Should().BeAssignableTo<IAggregateRoot>();
@@ -34,7 +35,7 @@ public class User_Should
     [Test(Description = "Verify that create method works")]
     public void Be_Created_With_Create()
     {
-        var user = User.Create(new UserId(), "Test User", "Test Email");
+        var user = User.Create(new UserId(), "Test User", "Test Email", _ => true, _ => true);
         user.Should().NotBeNull();
         user.Uuid.Should().NotBe(UserId.Empty);
         user.Nickname.Should().Be("Test User");
@@ -45,7 +46,7 @@ public class User_Should
     public void Be_Created_With_Create_With_UserId()
     {
         UserId userId = Guid.NewGuid();
-        var user = User.Create(userId, "Test User", "Test Email");
+        var user = User.Create(userId, "Test User", "Test Email", _ => true, _ => true);
         user.Should().NotBeNull();
         user.Uuid.Should().BeSameAs(userId);
         user.Nickname.Should().Be("Test User");
@@ -55,14 +56,29 @@ public class User_Should
     [Test(Description = "test that user nickname cannot be null or empty")]
     public void Not_Be_Created_With_Create_When_Nickname_Is_Null()
     {
-        Action act = () => User.Create(new UserId(), null!, "Test Email");
+        Action act = () => User.Create(new UserId(), null!, "Test Email", _ => true, _ => true);
         act.Should().Throw<ArgumentException>().WithMessage("Nickname cannot be null or empty");
     }
 
     [Test(Description = "test that user email cannot be null or empty")]
     public void Not_Be_Created_With_Create_When_Email_Is_Null()
     {
-        Action act = () => User.Create(new UserId(), "Test User", null!);
+        Action act = () => User.Create(new UserId(), "Test User", null!, _ => true, _ => true);
         act.Should().Throw<ArgumentException>().WithMessage("Email cannot be null or empty");
     }
+
+    [Test(Description = "throw Exception when email is not unique")]
+    public void Not_Be_Created_With_Create_When_Email_Is_Not_Unique()
+    {
+        Action act = () => User.Create(new UserId(), "Test User", "Test Email", _ => true, _ => false);
+        act.Should().Throw<EmailIsNotUniqueException>().WithMessage("Email 'Test Email' is already in use");
+    }
+
+    [Test(Description = "throw NicknameIsNotUniqueException when nickname is not unique")]
+    public void Not_Be_Created_With_Create_When_Nickname_Is_Not_Unique()
+    {
+        Action act = () => User.Create(new UserId(), "Test User", "Test Email", _ => false, _ => true);
+        act.Should().Throw<NicknameIsNotUniqueException>().WithMessage("Nickname 'Test User' is already in us");
+    }
+
 }

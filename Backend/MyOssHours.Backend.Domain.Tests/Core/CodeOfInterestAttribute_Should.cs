@@ -1,9 +1,10 @@
 ﻿using FluentAssertions;
-using MyOssHours.Backend.Domain.Attributes;
+using MyOssHours.Backend.Domain.Core;
 using NUnit.Framework;
+
 // ReSharper disable InconsistentNaming
 
-namespace MyOssHours.Backend.Domain.Tests.Users;
+namespace MyOssHours.Backend.Domain.Tests.Core;
 
 [TestFixture]
 public class CodeOfInterestAttribute_Should
