@@ -1,0 +1,6 @@
+@MyOssHours.Backend.REST_HostAddress = http://localhost:5192
+
+GET {{MyOssHours.Backend.REST_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
