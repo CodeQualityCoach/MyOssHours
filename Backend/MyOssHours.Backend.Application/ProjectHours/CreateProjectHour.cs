@@ -39,7 +39,7 @@ public static class CreateProjectHour
         public DateTime Date { get; set; }
         public TimeSpan Duration { get; set; }
         public required UserId User { get; set; }
-        public required string Description { get; set; }
+        public string? Description { get; set; }
     }
 
     public class Response
