@@ -75,7 +75,7 @@ public class ProjectHours_Should
     {
         var today = DateTime.Today;
         var user = new UserId();
-        Action act = () => ProjectHour.Create(null, user, today, TimeSpan.FromMinutes(60), "Test Description");
+        Action act = () => ProjectHour.Create(null!, user, today, TimeSpan.FromMinutes(60), "Test Description");
 
         act.Should().Throw<ArgumentNullException>().WithMessage("Value cannot be null. (Parameter 'workItem')");
     }
@@ -85,7 +85,7 @@ public class ProjectHours_Should
     {
         var today = DateTime.Today;
         var workItem = new WorkItemId();
-        Action act = () => ProjectHour.Create(workItem, null, today, TimeSpan.FromMinutes(60), "Test Description");
+        Action act = () => ProjectHour.Create(workItem, null!, today, TimeSpan.FromMinutes(60), "Test Description");
 
         act.Should().Throw<ArgumentNullException>().WithMessage("Value cannot be null. (Parameter 'user')");
     }
@@ -107,7 +107,7 @@ public class ProjectHours_Should
         var today = DateTime.Today;
         var workItem = new WorkItemId();
         var user = new UserId();
-        var projectHour = ProjectHour.Create(workItem, user, today, TimeSpan.FromMinutes(60), null);
+        var projectHour = ProjectHour.Create(workItem, user, today, TimeSpan.FromMinutes(60), null!);
 
         projectHour.Description.Should().BeNull();
     }

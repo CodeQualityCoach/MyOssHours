@@ -1,12 +1,16 @@
-﻿namespace MyOssHours.Backend.Domain.Projects;
+﻿using MyOssHours.Backend.Domain.Users;
+
+namespace MyOssHours.Backend.Domain.Projects;
 
 /// <summary>
 ///  WorkItem Domain Model which has WorkItems
 /// </summary>
 public class WorkItem
 {
+    private readonly List<ProjectHour> _projectHours = [];
+
     private WorkItem(
-        WorkItemId id, ProjectId project, 
+        WorkItemId id, ProjectId project,
         string name, string description,
         IEnumerable<ProjectHour>? projectHours)
     {
@@ -14,14 +18,16 @@ public class WorkItem
         Project = project;
         Name = name;
         Description = description;
-        ProjectHours = projectHours ?? Array.Empty<ProjectHour>();
+
+        if (projectHours != null)
+            _projectHours.AddRange(projectHours);
     }
 
     public WorkItemId Uuid { get; }
     public ProjectId Project { get; }
     public string Name { get; }
     public string Description { get; }
-    public IEnumerable<ProjectHour> ProjectHours { get; private set; }
+    public IEnumerable<ProjectHour> ProjectHours => _projectHours.AsReadOnly();
 
     public static WorkItem Create(ProjectId project, string name, string description, IEnumerable<ProjectHour>? projectHours = null)
     {
@@ -36,4 +42,16 @@ public class WorkItem
 
         return new WorkItem(id, project, name, description, projectHours);
     }
+
+    internal ProjectHour CreateProjectHour(WorkItemId workItem, UserId user, DateTime date, TimeSpan duration, string description)
+    {
+        //// todo preserve hierarchy when I do this
+        //var workItemToUse = WorkItems.FirstOrDefault(x => x.Uuid == workItem);
+        //if (workItemToUse == null) throw new WorkItemNotFoundException(workItem);
+
+        var result = ProjectHour.Create(Uuid, user, date, duration, description);
+        _projectHours.Add(result);
+        return result;
+    }
+
 }

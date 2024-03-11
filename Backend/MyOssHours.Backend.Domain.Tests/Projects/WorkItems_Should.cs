@@ -17,6 +17,18 @@ public class WorkItems_Should
         constructor.Should().BeNull();
     }
 
+    [Test(Description = "Verify that the create method is internal")]
+    public void Have_An_Internal_Create_Method()
+    {
+        // internal methods can be found using BindingFlags.NonPublic
+        var allMethods = typeof(WorkItem).GetMethods(BindingFlags.NonPublic | BindingFlags.Static).Where(m => m.Name == "Create");
+        allMethods.Count().Should().BeGreaterThan(0);
+
+        // but no public ones
+        var method = typeof(WorkItem).GetMethods(BindingFlags.Public | BindingFlags.Static);
+        method.Count(m => m.Name == "Create").Should().Be(0);
+    }
+
     [Test(Description = "Verify that create method works")]
     public void Be_Created_With_Create()
     {
@@ -60,7 +72,7 @@ public class WorkItems_Should
     public void Not_Be_Created_With_Create_When_Name_Is_Null()
     {
         var project = new ProjectId();
-        Action act = () => WorkItem.Create(project, null, "Test Description", new List<ProjectHour>());
+        Action act = () => WorkItem.Create(project, null!, "Test Description", new List<ProjectHour>());
 
         act.Should().Throw<ArgumentNullException>().WithMessage("Value cannot be null. (Parameter 'name')");
     }
@@ -69,7 +81,7 @@ public class WorkItems_Should
     public void Be_Created_With_Create_When_Description_Is_Null()
     {
         var project = new ProjectId();
-        var workItem = WorkItem.Create(project, "Test Work Item", null, new List<ProjectHour>());
+        var workItem = WorkItem.Create(project, "Test Work Item", null!, new List<ProjectHour>());
 
         workItem.Project.Should().Be(project);
         workItem.Name.Should().Be("Test Work Item");
@@ -80,7 +92,7 @@ public class WorkItems_Should
     [Test(Description = "test that the project cannot be null")]
     public void Not_Be_Created_With_Create_When_Project_Is_Null()
     {
-        Action act = () => WorkItem.Create(null, "Test Work Item", "Test Description", new List<ProjectHour>());
+        Action act = () => WorkItem.Create(null!, "Test Work Item", "Test Description", new List<ProjectHour>());
 
         act.Should().Throw<ArgumentNullException>().WithMessage("Value cannot be null. (Parameter 'project')");
     }
