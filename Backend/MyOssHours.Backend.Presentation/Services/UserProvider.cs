@@ -18,7 +18,7 @@ public class UserProvider
         if (_httpContextAccessor.HttpContext is null) throw new InvalidOperationException("No HTTP context available");
 
         var email = _httpContextAccessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.Email).Value;
-        var name = _httpContextAccessor.HttpContext.User.Claims.First(x => x.Type == ClaimTypes.Name).Value;
+        var name = _httpContextAccessor.HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Name)?.Value ?? string.Empty;
 
         var response = _mediator.Send(new EnsureUser.Command()
         {
