@@ -6,18 +6,13 @@ namespace MyOssHours.Backend.Application.Users;
 
 public class EnsureUser
 {
-    public class Handler : IRequestHandler<Command, Response>
+    public class Handler(IUserRepository repository) : IRequestHandler<Command, Response>
     {
-        private readonly IUserRepository _repository;
-
-        public Handler(IUserRepository repository)
-        {
-            _repository = repository ?? throw new ArgumentNullException(nameof(repository));
-        }
+        private readonly IUserRepository _repository = repository ?? throw new ArgumentNullException(nameof(repository));
 
         public async Task<Response> Handle(Command command, CancellationToken cancellationToken)
         {
-            var user = await _repository.EnsureUser(command.Sid, command.Nickname, command.Email);
+            var user = await _repository.EnsureUser(command.Email, command.Nickname);
 
             return new Response
             {
@@ -28,7 +23,6 @@ public class EnsureUser
 
     public class Command : IRequest<Response>
     {
-        public required string Sid { get; set; }
         public required string Email { get; set; }
         public required string Nickname { get; set; }
     }

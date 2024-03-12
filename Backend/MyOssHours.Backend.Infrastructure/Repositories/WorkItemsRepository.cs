@@ -10,7 +10,7 @@ internal class WorkItemsRepository(MyOssHoursDbContext dbContext) : IWorkItemsRe
 {
     public async Task<IEnumerable<WorkItem>> GetWorkItems(UserId uuid, ProjectId projectId)
     {
-        var p = dbContext.Projects.Include(x => x.WorkItems).Include(x => x.Members).ThenInclude(x => x.User).First(x => x.Uuid == projectId);
+        var p = await dbContext.Projects.Include(x => x.WorkItems).Include(x => x.Members).ThenInclude(x => x.User).FirstAsync(x => x.Uuid == projectId);
         var hasAccess = p.Members.Any(x => x.User.Uuid == uuid);
         if (!hasAccess)
             throw new UnauthorizedAccessException();

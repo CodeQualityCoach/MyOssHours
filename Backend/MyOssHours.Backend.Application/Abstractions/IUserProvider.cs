@@ -2,7 +2,7 @@
 
 namespace MyOssHours.Backend.Application.Abstractions;
 
-public interface IUserRepository
+public interface IUserProvider
 {
-    Task<User> EnsureUser(string email, string nickname);
+    User GetCurrentUser();
 }

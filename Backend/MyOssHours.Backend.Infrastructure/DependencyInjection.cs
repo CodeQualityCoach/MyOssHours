@@ -23,7 +23,7 @@ public static class DependencyInjection
     }
 
     // use infrastructure with db initialization
-    public static void UseInfrastructure(IServiceProvider services)
+    public static void UseInfrastructure(this IServiceProvider services)
     {
         var scope = services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<MyOssHoursDbContext>();

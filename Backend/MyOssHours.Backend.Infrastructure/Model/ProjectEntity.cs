@@ -11,7 +11,7 @@ internal class ProjectEntity
     [MaxLength(128)]
     public required string Name { get; set; }
     [MaxLength(1024)]
-    public required string Description { get; set; }
+    public string? Description { get; set; }
 
     public virtual List<WorkItemEntity> WorkItems { get; set; } = [];
     public virtual List<ProjectPermissionEntity> Members { get; set; } = [];
