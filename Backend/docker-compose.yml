@@ -1,0 +1,32 @@
+version: '3.4'
+
+services:
+  myosshours.backend.rest:
+    image: ${DOCKER_REGISTRY-}myosshoursbackendrest
+    build:
+      context: .
+      dockerfile: MyOssHours.Backend.REST/Dockerfile
+    environment:
+    - ConnectionStrings__DefaultConnection=${MYOSSHOURS_DB_CONNSTR:?error}
+    - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+    - "8081:8081"
+
+  mssql:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+      - ACCEPT_EULA=${ACCEPT_EULA:?error}
+      - SA_PASSWORD=${SA_PASSWORD:?error}
+      - MSSQL_PID=${MSSQL_PID:?error}
+      - MSSQL_COLLATION=${MSSQL_COLLATION:?error}
+
+    ports:
+    - 21433:1433 # make sense to open this to use SSMS
+    volumes:
+    - ${DOCKER_TEMP_FOLDER}mssql/data:/var/lib/mssql/data
+    healthcheck:
+        test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P ${SA_PASSWORD} -Q 'SELECT 1' || exit 1"]
+        interval: 10s
+        retries: 10
+        start_period: 10s
+        timeout: 3s

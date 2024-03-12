@@ -5,7 +5,6 @@ namespace MyOssHours.Backend.Domain.Core;
 /// <summary>
 ///     ValueObject is a class from the DDD book by Eric Evans
 /// </summary>
-[ExcludeFromCodeCoverage()]
 [CodeOfInterest("Implements a value object according to the DDD book from Eric Evans")]
 public abstract class ValueObject
 {
@@ -13,7 +12,7 @@ public abstract class ValueObject
     {
         if (ReferenceEquals(left, null) ^ ReferenceEquals(right, null)) return false;
 
-        return ReferenceEquals(left, right) || left.Equals(right);
+        return ReferenceEquals(left, right) || left!.Equals(right);
     }
 
     protected static bool NotEqualOperator(ValueObject left, ValueObject? right)

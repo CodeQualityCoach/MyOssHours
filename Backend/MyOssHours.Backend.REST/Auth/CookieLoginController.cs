@@ -1,4 +1,5 @@
 ﻿using System.Security.Claims;
+using System.Security.Cryptography;
 using System.Text;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -16,6 +17,8 @@ public class CookieLoginController(IHttpContextAccessor contextAccessor)
     [HttpPost("Login")]
     public async Task<IActionResult> Login([FromBody] CookieLoginModel login)
     {
+        if (_contextAccessor.HttpContext is null) throw new InvalidOperationException("HttpContext is null");
+
         // todo: make the file configurable
         if (!System.IO.File.Exists(".htaccess")) return Unauthorized();
         var userHtAccess = (await System.IO.File.ReadAllLinesAsync(".htaccess"))
@@ -49,6 +52,8 @@ public class CookieLoginController(IHttpContextAccessor contextAccessor)
     [HttpGet("Logout")]
     public IActionResult Logout()
     {
+        if (_contextAccessor.HttpContext is null) throw new InvalidOperationException("HttpContext is null");
+
         _contextAccessor.HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme).Wait();
         return Ok();
     }
@@ -56,16 +61,19 @@ public class CookieLoginController(IHttpContextAccessor contextAccessor)
     [HttpGet("GetCurrentUser")]
     public IActionResult GetCurrentUser()
     {
+        if (_contextAccessor.HttpContext is null) throw new InvalidOperationException("HttpContext is null");
+
         var claims = _contextAccessor.HttpContext.User.Claims.ToList().Select(x => new { x.Type, x.Value });
         return Ok(claims);
     }
 
     static string Sha256(string randomString)
     {
-        var crypt = new System.Security.Cryptography.SHA256Managed();
-        var hash = new System.Text.StringBuilder();
-        byte[] crypto = crypt.ComputeHash(Encoding.UTF8.GetBytes(randomString));
-        foreach (byte theByte in crypto)
+        var crypt = SHA256.Create() ?? throw new InvalidOperationException("SHA256.Create() returned null");
+
+        var hash = new StringBuilder();
+        var crypto = crypt.ComputeHash(Encoding.UTF8.GetBytes(randomString));
+        foreach (var theByte in crypto)
         {
             hash.Append(theByte.ToString("x2"));
         }

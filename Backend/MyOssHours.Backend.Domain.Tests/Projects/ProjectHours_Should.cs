@@ -40,7 +40,7 @@ public class ProjectHours_Should
     [Test(Description = "Verify that create method works")]
     public void Be_Created_With_Create()
     {
-        var today = DateTime.Today;
+        var today = DateOnly.FromDateTime(DateTime.Today);
         var workItem = new WorkItemId();
         var user = new UserId();
         var projectHour = ProjectHour.Create(workItem, user, today, TimeSpan.FromMinutes(60), "Test Description");
@@ -57,7 +57,7 @@ public class ProjectHours_Should
     public void Be_Created_With_Create_With_Id()
     {
         ProjectHourId id = Guid.NewGuid();
-        var today = DateTime.Today;
+        var today = DateOnly.FromDateTime(DateTime.Today);
         var workItem = new WorkItemId();
         var user = new UserId();
         var projectHour = ProjectHour.Create(id, workItem, user, today, TimeSpan.FromMinutes(60), "Test Description");
@@ -73,9 +73,9 @@ public class ProjectHours_Should
     [Test(Description = "test that the work item cannot be null")]
     public void Not_Be_Created_With_Create_When_WorkItem_Is_Null()
     {
-        var today = DateTime.Today;
+        var today = DateOnly.FromDateTime(DateTime.Today);
         var user = new UserId();
-        Action act = () => ProjectHour.Create(null, user, today, TimeSpan.FromMinutes(60), "Test Description");
+        Action act = () => ProjectHour.Create(null!, user, today, TimeSpan.FromMinutes(60), "Test Description");
 
         act.Should().Throw<ArgumentNullException>().WithMessage("Value cannot be null. (Parameter 'workItem')");
     }
@@ -83,9 +83,9 @@ public class ProjectHours_Should
     [Test(Description = "test that the user cannot be null")]
     public void Not_Be_Created_With_Create_When_User_Is_Null()
     {
-        var today = DateTime.Today;
+        var today = DateOnly.FromDateTime(DateTime.Today);
         var workItem = new WorkItemId();
-        Action act = () => ProjectHour.Create(workItem, null, today, TimeSpan.FromMinutes(60), "Test Description");
+        Action act = () => ProjectHour.Create(workItem, null!, today, TimeSpan.FromMinutes(60), "Test Description");
 
         act.Should().Throw<ArgumentNullException>().WithMessage("Value cannot be null. (Parameter 'user')");
     }
@@ -93,7 +93,7 @@ public class ProjectHours_Should
     [Test(Description = "test that the start date cannot be more than 30 days in the future")]
     public void Not_Be_Created_With_Create_When_StartDate_Is_More_Than_30_Days_In_The_Future()
     {
-        var today = DateTime.Today.AddDays(31);
+        var today = DateOnly.FromDateTime(DateTime.Today.AddDays(31));
         var workItem = new WorkItemId();
         var user = new UserId();
         Action act = () => ProjectHour.Create(workItem, user, today, TimeSpan.FromMinutes(60), "Test Description");
@@ -104,10 +104,10 @@ public class ProjectHours_Should
     [Test(Description = "Test that description can be null")]
     public void Be_Created_With_Create_When_Description_Is_Null()
     {
-        var today = DateTime.Today;
+        var today = DateOnly.FromDateTime(DateTime.Today);
         var workItem = new WorkItemId();
         var user = new UserId();
-        var projectHour = ProjectHour.Create(workItem, user, today, TimeSpan.FromMinutes(60), null);
+        var projectHour = ProjectHour.Create(workItem, user, today, TimeSpan.FromMinutes(60), null!);
 
         projectHour.Description.Should().BeNull();
     }
@@ -115,7 +115,7 @@ public class ProjectHours_Should
     [Test(Description = "Test that duration cannot be less than 1 minute")]
     public void Not_Be_Created_With_Create_When_Duration_Is_Less_Than_1_Minute()
     {
-        var today = DateTime.Today;
+        var today = DateOnly.FromDateTime(DateTime.Today);
         var workItem = new WorkItemId();
         var user = new UserId();
         Action act = () => ProjectHour.Create(workItem, user, today, TimeSpan.FromSeconds(59), "Test Description");

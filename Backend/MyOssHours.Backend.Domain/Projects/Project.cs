@@ -1,5 +1,6 @@
 ﻿using System.Security.Cryptography.X509Certificates;
 using MyOssHours.Backend.Domain.Core;
+using MyOssHours.Backend.Domain.Users;
 
 namespace MyOssHours.Backend.Domain.Projects;
 
@@ -8,21 +9,24 @@ namespace MyOssHours.Backend.Domain.Projects;
 /// </summary>
 public class Project : IAggregateRoot
 {
+    private List<WorkItem> _workItems = [];
+    private List<ProjectPermission> _permissions = [];
+
     private Project(ProjectId uuid, string name, string? description)
     {
         Uuid = uuid;
         Name = name;
         Description = description;
-        WorkItems = new List<WorkItem>();
-        Permissions = new List<ProjectPermission>();
     }
 
     public ProjectId Uuid { get; }
 
     public string Name { get; }
     public string? Description { get; }
-    public IEnumerable<WorkItem> WorkItems { get; private set; }
-    public IEnumerable<ProjectPermission> Permissions { get; private set; }
+
+    [CodeOfInterest("This makes sure that the IEnumerable cannot be casted and changed")]
+    public IEnumerable<WorkItem> WorkItems => _workItems.AsReadOnly();
+    public IEnumerable<ProjectPermission> Permissions => _permissions.AsReadOnly();
 
     public static Project Create(
         string name, string? description,
@@ -30,6 +34,11 @@ public class Project : IAggregateRoot
         IEnumerable<WorkItem>? workItems = null)
     {
         return Create(new ProjectId(), name, description, members, workItems);
+    }
+
+    public static Project Create(string name, string? description, UserId owner)
+    {
+        return Create(new ProjectId(), name, description, new[] { ProjectPermission.Create(owner, PermissionLevel.Owner) });
     }
 
     public static Project Create(
@@ -50,8 +59,8 @@ public class Project : IAggregateRoot
 
         return new Project(id, name, description)
         {
-            Permissions = projectMembers.ToArray(),
-            WorkItems = workItemsSafe
+            _permissions = [.. projectMembers.ToArray()],
+            _workItems = [.. workItemsSafe]
         };
     }
 
@@ -79,5 +88,27 @@ public class Project : IAggregateRoot
 
         if (workItemNames.Any())
             throw new DuplicateWorkItemNameException(workItemNames.Select(x => x.WorkItem).ToArray());
+    }
+
+    public ProjectHour CreateProjectHour(WorkItemId workItem, UserId user, DateOnly date, TimeSpan duration, string? description)
+    {
+        var workItemToUse = _workItems.FirstOrDefault(x => x.Uuid == workItem);
+        if (workItemToUse == null) throw new WorkItemNotFoundException(workItem);
+
+        var result = workItemToUse.CreateProjectHour(workItem, user, date, duration, description);
+        return result;
+    }
+
+    public WorkItem AddWorkItem(WorkItemId uuId, string name, string description)
+    {
+        var workItem = WorkItem.Create(uuId, Uuid, name, description);
+        _workItems.Add(workItem);
+
+        return workItem;
+    }
+
+    public void AddMember(UserId uuid, PermissionLevel role)
+    {
+        _permissions.Add(ProjectPermission.Create(uuid, role));
     }
 }
