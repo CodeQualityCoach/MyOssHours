@@ -1,0 +1,12 @@
+{
+  "profiles": {
+    "Docker Compose": {
+      "commandName": "DockerCompose",
+      "commandVersion": "1.0",
+      "serviceActions": {
+        "myosshours.backend.presentation": "StartDebugging",
+        "myosshours.backend.rest": "StartDebugging"
+      }
+    }
+  }
+}
