@@ -1,21 +1,19 @@
-version: '3.4'
+version: '3.8'
+name: myosshours
 
 services:
   myosshours.backend.rest:
-    image: ${DOCKER_REGISTRY-}myosshoursbackendrest
-    build:
-      context: .
-      dockerfile: MyOssHours.Backend.REST/Dockerfile
+    image: thomasley/myosshours:backend
     environment:
     - ConnectionStrings__DefaultConnection=${MYOSSHOURS_DB_CONNSTR:?error}
     - ASPNETCORE_ENVIRONMENT=Development
-
+    - Kestrel__Certificates__Default__Path=/https/webcertificate.pfx
     - Kestrel__Certificates__Default__Password=${WEBCERTIFICATE_PWD:?error}
     ports:
-    - "8080:8080"
-    - "8443:8443"
+    - "10443:8443"
     volumes:
     - ${WEBCERTIFICATE_FILE:?error}:/https/webcertificate.pfx:ro
+    - ./.htaccess:/app/.htaccess:ro
 
   mssql:
     image: mcr.microsoft.com/mssql/server:2019-latest
@@ -24,9 +22,8 @@ services:
       - SA_PASSWORD=${SA_PASSWORD:?error}
       - MSSQL_PID=${MSSQL_PID:?error}
       - MSSQL_COLLATION=${MSSQL_COLLATION:?error}
-
-    ports:
-    - 21433:1433 # make sense to open this to use SSMS
+#    ports:
+#    - 4433:1433 # make sense to open this to use SSMS
     volumes:
     - ${DOCKER_TEMP_FOLDER}mssql/data:/var/lib/mssql/data
     healthcheck:
