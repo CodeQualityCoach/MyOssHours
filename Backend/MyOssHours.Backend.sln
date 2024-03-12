@@ -11,7 +11,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{C93AAB63
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyOssHours.Backend.Domain.Tests", "MyOssHours.Backend.Domain.Tests\MyOssHours.Backend.Domain.Tests.csproj", "{72DDF2FF-92AD-46BC-9666-5883478BC63D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyOssHours.Backend.REST", "MyOssHours.Backend.REST\MyOssHours.Backend.REST.csproj", "{0F24FBF8-015D-42AE-8A4A-FA97C41FA72A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyOssHours.Backend.REST", "MyOssHours.Backend.REST\MyOssHours.Backend.REST.csproj", "{0F24FBF8-015D-42AE-8A4A-FA97C41FA72A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyOssHours.Backend.Application", "MyOssHours.Backend.Application\MyOssHours.Backend.Application.csproj", "{8EAE587E-9DA2-4493-97BD-4C35F7B06DB5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyOssHours.Backend.Presentation", "MyOssHours.Backend.Presentation\MyOssHours.Backend.Presentation.csproj", "{2B37C8CD-B6FA-40FF-8AAE-5005A65A1B81}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyOssHours.Backend.Infrastructure", "MyOssHours.Backend.Infrastructure\MyOssHours.Backend.Infrastructure.csproj", "{667E676B-9B4A-4FC0-87E9-9AB86EE2C675}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -31,6 +37,18 @@ Global
 		{0F24FBF8-015D-42AE-8A4A-FA97C41FA72A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0F24FBF8-015D-42AE-8A4A-FA97C41FA72A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0F24FBF8-015D-42AE-8A4A-FA97C41FA72A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8EAE587E-9DA2-4493-97BD-4C35F7B06DB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8EAE587E-9DA2-4493-97BD-4C35F7B06DB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8EAE587E-9DA2-4493-97BD-4C35F7B06DB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8EAE587E-9DA2-4493-97BD-4C35F7B06DB5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2B37C8CD-B6FA-40FF-8AAE-5005A65A1B81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2B37C8CD-B6FA-40FF-8AAE-5005A65A1B81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2B37C8CD-B6FA-40FF-8AAE-5005A65A1B81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2B37C8CD-B6FA-40FF-8AAE-5005A65A1B81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{667E676B-9B4A-4FC0-87E9-9AB86EE2C675}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{667E676B-9B4A-4FC0-87E9-9AB86EE2C675}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{667E676B-9B4A-4FC0-87E9-9AB86EE2C675}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{667E676B-9B4A-4FC0-87E9-9AB86EE2C675}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -39,6 +57,9 @@ Global
 		{F084859B-82AA-4901-A359-F18749079CF2} = {9ABF473F-5A67-49EB-BDBF-A6407FDA2DAA}
 		{72DDF2FF-92AD-46BC-9666-5883478BC63D} = {C93AAB63-360C-4F6D-946A-245C55A5A1C1}
 		{0F24FBF8-015D-42AE-8A4A-FA97C41FA72A} = {9ABF473F-5A67-49EB-BDBF-A6407FDA2DAA}
+		{8EAE587E-9DA2-4493-97BD-4C35F7B06DB5} = {9ABF473F-5A67-49EB-BDBF-A6407FDA2DAA}
+		{2B37C8CD-B6FA-40FF-8AAE-5005A65A1B81} = {9ABF473F-5A67-49EB-BDBF-A6407FDA2DAA}
+		{667E676B-9B4A-4FC0-87E9-9AB86EE2C675} = {9ABF473F-5A67-49EB-BDBF-A6407FDA2DAA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5A77F52F-196D-4E6D-A7BE-5C47E9CB077E}

@@ -17,8 +17,7 @@ public static class CreateWorkItem
 
         public async Task<Response> Handle(Command request, CancellationToken cancellationToken)
         {
-            var workItem = await _repository.CreateWorkItem(WorkItem.Create(
-                request.Project, request.Name, request.Description));
+            var workItem = await _repository.CreateWorkItem(request.Project, request.Name, request.Description);
 
             return new Response
             {

@@ -13,4 +13,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MyOssHours.Backend.Application\MyOssHours.Backend.Application.csproj" />
+    <ProjectReference Include="..\MyOssHours.Backend.Infrastructure\MyOssHours.Backend.Infrastructure.csproj" />
+    <ProjectReference Include="..\MyOssHours.Backend.Presentation\MyOssHours.Backend.Presentation.csproj" />
+  </ItemGroup>
+
 </Project>

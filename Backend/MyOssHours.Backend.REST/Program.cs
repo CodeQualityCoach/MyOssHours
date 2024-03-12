@@ -1,6 +1,16 @@
+using MyOssHours.Backend.Application;
+using MyOssHours.Backend.Infrastructure;
+using MyOssHours.Backend.Presentation;
 using MyOssHours.Backend.REST.Auth;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// add clean architecture layers
+builder.Services
+    .AddApplication(builder.Configuration)
+    .AddInfrastructure(builder.Configuration)
+    .AddPresentation(builder.Configuration);
+
 
 // Add services to the container.
 
@@ -20,6 +30,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 
 app.UseHttpsRedirection();
 

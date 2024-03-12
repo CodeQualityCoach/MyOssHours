@@ -90,12 +90,25 @@ public class Project : IAggregateRoot
             throw new DuplicateWorkItemNameException(workItemNames.Select(x => x.WorkItem).ToArray());
     }
 
-    public ProjectHour CreateProjectHour(WorkItemId workItem, UserId user, DateTime date, TimeSpan duration, string description)
+    public ProjectHour CreateProjectHour(WorkItemId workItem, UserId user, DateOnly date, TimeSpan duration, string? description)
     {
         var workItemToUse = _workItems.FirstOrDefault(x => x.Uuid == workItem);
         if (workItemToUse == null) throw new WorkItemNotFoundException(workItem);
 
         var result = workItemToUse.CreateProjectHour(workItem, user, date, duration, description);
         return result;
+    }
+
+    public WorkItem AddWorkItem(WorkItemId uuId, string name, string description)
+    {
+        var workItem = WorkItem.Create(uuId, Uuid, name, description);
+        _workItems.Add(workItem);
+
+        return workItem;
+    }
+
+    public void AddMember(UserId uuid, PermissionLevel role)
+    {
+        _permissions.Add(ProjectPermission.Create(uuid, role));
     }
 }

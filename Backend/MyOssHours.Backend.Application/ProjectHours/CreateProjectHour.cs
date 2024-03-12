@@ -36,7 +36,7 @@ public static class CreateProjectHour
     {
         public required ProjectId Project { get; set; }
         public required WorkItemId WorkItem { get; set; }
-        public DateTime Date { get; set; }
+        public DateOnly Date { get; set; }
         public TimeSpan Duration { get; set; }
         public required UserId User { get; set; }
         public string? Description { get; set; }
