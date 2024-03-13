@@ -11,6 +11,8 @@ builder.Services
     .AddInfrastructure(builder.Configuration)
     .AddPresentation(builder.Configuration);
 
+builder.Services.AddLogging();
+builder.Logging.AddConsole();
 
 // Add services to the container.
 

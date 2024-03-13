@@ -1,9 +1,9 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using MyOssHours.Backend.Application.Abstractions;
 using MyOssHours.Backend.Domain.Users;
-using MyOssHours.Backend.Infrastructure.Model;
+using MyOssHours.Backend.Infrastructure.Persistence.Model;
 
-namespace MyOssHours.Backend.Infrastructure.Repositories;
+namespace MyOssHours.Backend.Infrastructure.Persistence.Repositories;
 
 internal class UsersRepository(MyOssHoursDbContext dbContext) : IUserRepository
 {
