@@ -1,26 +1,23 @@
-﻿using AutoMapper;
+﻿using System.Globalization;
+using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyOssHours.Backend.Application.WorkItems;
 using MyOssHours.Backend.Presentation.Models;
-using MyOssHours.Backend.Presentation.Requests;
 
 namespace MyOssHours.Backend.Presentation.Controllers;
 
 [Route("api/v1/[controller]")]
+[Authorize()]
 [ApiController]
-public class WorkItemsController : ControllerBase
+public class WorkItemsController
+    (IMediator mediator, IMapper mapper, IHttpContextAccessor httpContext)
+    : ControllerBase
 {
-    private readonly IHttpContextAccessor _httpContext;
-    private readonly IMapper _mapper;
-    private readonly IMediator _mediator;
-
-    public WorkItemsController(IMediator mediator, IMapper mapper, IHttpContextAccessor httpContext)
-    {
-        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-        _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-        _httpContext = httpContext ?? throw new ArgumentNullException(nameof(httpContext));
-    }
+    private readonly IHttpContextAccessor _httpContext = httpContext ?? throw new ArgumentNullException(nameof(httpContext));
+    private readonly IMapper _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+    private readonly IMediator _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
 
     // GET: api/<ProjectController>
     [HttpGet]
@@ -60,4 +57,26 @@ public class WorkItemsController : ControllerBase
 
         return response.Success ? Ok() : BadRequest(response.Exception?.Message ?? "unknown fatal and anonymous exception");
     }
+
+    #region Commands
+
+    public class DeleteWorkItemCommand
+    {
+        public Guid WorkItem { get; set; }
+    }
+    
+    public class GetWorkItemsQuery
+    {
+        public required int Offset { get; set; }
+        public required int Size { get; set; }
+        public required Guid Project { get; set; }
+    }
+    
+    public class CreateWorkItemCommand
+    {
+        public required Guid Project { get; set; }
+        public required string Name { get; set; }
+        public required string Description { get; set; }
+    }
+    #endregion
 }

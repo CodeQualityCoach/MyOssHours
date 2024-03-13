@@ -2,9 +2,9 @@
 using MyOssHours.Backend.Application.Abstractions;
 using MyOssHours.Backend.Domain.Projects;
 using MyOssHours.Backend.Domain.Users;
-using MyOssHours.Backend.Infrastructure.Model;
+using MyOssHours.Backend.Infrastructure.Persistence.Model;
 
-namespace MyOssHours.Backend.Infrastructure.Repositories;
+namespace MyOssHours.Backend.Infrastructure.Persistence.Repositories;
 
 internal class WorkItemsRepository(MyOssHoursDbContext dbContext) : IWorkItemsRepository
 {

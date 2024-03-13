@@ -2,7 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using MyOssHours.Backend.Application.Abstractions;
-using MyOssHours.Backend.Infrastructure.Repositories;
+using MyOssHours.Backend.Infrastructure.Persistence;
+using MyOssHours.Backend.Infrastructure.Persistence.Repositories;
 
 namespace MyOssHours.Backend.Infrastructure;
 

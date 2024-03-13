@@ -19,7 +19,7 @@ namespace MyOssHours.Backend.Specs.Tests
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.9.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public partial class ProjectFeature : object, Xunit.IClassFixture<ProjectFeature.FixtureData>, System.IDisposable
+    public partial class LoginFeature : object, Xunit.IClassFixture<LoginFeature.FixtureData>, System.IDisposable
     {
         
         private static TechTalk.SpecFlow.ITestRunner testRunner;
@@ -28,10 +28,10 @@ namespace MyOssHours.Backend.Specs.Tests
         
         private Xunit.Abstractions.ITestOutputHelper _testOutputHelper;
         
-#line 1 "Project.feature"
+#line 1 "Login.feature"
 #line hidden
         
-        public ProjectFeature(ProjectFeature.FixtureData fixtureData, MyOssHours_Backend_Specs_Tests_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
+        public LoginFeature(LoginFeature.FixtureData fixtureData, MyOssHours_Backend_Specs_Tests_XUnitAssemblyFixture assemblyFixture, Xunit.Abstractions.ITestOutputHelper testOutputHelper)
         {
             this._testOutputHelper = testOutputHelper;
             this.TestInitialize();
@@ -40,7 +40,8 @@ namespace MyOssHours.Backend.Specs.Tests
         public static void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "", "Project", "A short summary of the feature", ProgrammingLanguage.CSharp, featureTags);
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "", "Login", "As a user\r\nI want to login with username and password\r\nSo that I have access to t" +
+                    "he system", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -80,17 +81,25 @@ namespace MyOssHours.Backend.Specs.Tests
             this.TestTearDown();
         }
         
-        [Xunit.SkippableFactAttribute(DisplayName="Read Project")]
-        [Xunit.TraitAttribute("FeatureTitle", "Project")]
-        [Xunit.TraitAttribute("Description", "Read Project")]
-        [Xunit.TraitAttribute("Category", "project")]
-        public void ReadProject()
+        [Xunit.SkippableTheoryAttribute(DisplayName="Login with valid credentials")]
+        [Xunit.TraitAttribute("FeatureTitle", "Login")]
+        [Xunit.TraitAttribute("Description", "Login with valid credentials")]
+        [Xunit.TraitAttribute("Category", "login")]
+        [Xunit.InlineDataAttribute("Alice", new string[0])]
+        [Xunit.InlineDataAttribute("Bob", new string[0])]
+        public void LoginWithValidCredentials(string id, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
-                    "project"};
+            string[] @__tags = new string[] {
+                    "login"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Read Project", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 17
+            argumentsOfScenario.Add("id", id);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Login with valid credentials", null, tagsOfScenario, argumentsOfScenario, featureTags);
+#line 8
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -100,29 +109,14 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 18
- testRunner.Given("the user Alice is logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 9
+ testRunner.Given(string.Format("the user {0} is logged in", id), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-                TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
-                            "name",
-                            "description"});
-                table1.AddRow(new string[] {
-                            "Demo_01",
-                            "The is project demo 01"});
-                table1.AddRow(new string[] {
-                            "Demo_02",
-                            "This is project demo 02"});
-#line 19
- testRunner.Given("the following projects exist for user alice:", ((string)(null)), table1, "Given ");
+#line 10
+ testRunner.When("the user information is requested", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 23
- testRunner.When("the user alice reads the existing projects", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 24
- testRunner.Then("the result contains a project with the name \'Demo_01\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-#line 25
- testRunner.Then("the result contains a project with the name \'Demo_02\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 11
+ testRunner.Then(string.Format("the user has a claim with an email address containing {0}", id), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -135,12 +129,12 @@ this.ScenarioInitialize(scenarioInfo);
             
             public FixtureData()
             {
-                ProjectFeature.FeatureSetup();
+                LoginFeature.FeatureSetup();
             }
             
             void System.IDisposable.Dispose()
             {
-                ProjectFeature.FeatureTearDown();
+                LoginFeature.FeatureTearDown();
             }
         }
     }

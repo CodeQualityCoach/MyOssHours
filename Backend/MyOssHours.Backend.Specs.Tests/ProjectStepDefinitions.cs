@@ -7,39 +7,6 @@ using TechTalk.SpecFlow;
 namespace MyOssHours.Backend.Specs.Tests;
 
 [Binding]
-public class LoginStepDefinitions
-{
-    private readonly ScenarioContext _context;
-
-    private class User
-    {
-        public required string Name { get; init; }
-        public required string Email { get; init; }
-    }
-
-    public LoginStepDefinitions(ScenarioContext context)
-    {
-        _context = context ?? throw new ArgumentNullException(nameof(context));
-    }
-
-    private readonly Dictionary<string, User> _users = new()
-    {
-        { "alice", new User { Name = "alice", Email = "alice@localhost"} },
-        { "bob", new User { Name = "bob", Email = "bob@localhost"} },
-    };
-
-    [Given(@"the user (.*) is logged in")]
-    public async Task GivenTheUserWithIdIsLoggedIn(string id)
-    {
-        var client = new HttpClient();
-        var user = _users[id];
-        var result = await client.PostAsync($"https://localhost:10443/api/v1/CookieLogin/Login/", new StringContent("{\r\n  \"email\": \"Thomas\",\r\n  \"password\": \"password123\"\r\n}"));
-
-        _context["HttpClient"] = client;
-    }
-}
-
-[Binding]
 public class ProjectStepDefinitions
 {
     private readonly ScenarioContext _context;
@@ -55,7 +22,7 @@ public class ProjectStepDefinitions
         var client = _context.Get<HttpClient>("HttpClient");
         foreach (var tableRow in table.Rows)
         {
-            var result = await client.PostAsync($"https://localhost:6003/api/v1/Project", JsonContent.Create(new CreateProjectCommand()
+            var result = await client.PostAsync($"https://localhost:10443/api/v1/Project", JsonContent.Create(new CreateProjectCommand()
             {
                 Name = tableRow["name"],
                 Description = tableRow["description"],

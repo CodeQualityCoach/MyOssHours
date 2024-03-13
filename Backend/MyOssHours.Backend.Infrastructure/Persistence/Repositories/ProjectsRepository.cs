@@ -2,21 +2,21 @@
 using MyOssHours.Backend.Application.Abstractions;
 using MyOssHours.Backend.Domain.Projects;
 using MyOssHours.Backend.Domain.Users;
-using MyOssHours.Backend.Infrastructure.Model;
+using MyOssHours.Backend.Infrastructure.Persistence.Model;
 
-namespace MyOssHours.Backend.Infrastructure.Repositories;
+namespace MyOssHours.Backend.Infrastructure.Persistence.Repositories;
 
 internal class ProjectsRepository(MyOssHoursDbContext dbContext) : IProjectsRepository
 {
     public async Task<IEnumerable<Project>> GetProjects(UserId currentUser, int offset = 0, int size = 20)
     {
-        var projects = await dbContext.Projects
+        var projects = dbContext.Projects
             .Where(x => x.Members.Any(m => m.User.Uuid == currentUser.Uuid && m.Role > PermissionLevel.None))
             .Skip(offset)
             .Take(size)
+            .ToList()
             .Select(x =>
-                Project.Create(x.Uuid, x.Name, x.Description, Array.Empty<ProjectPermission>(), Array.Empty<WorkItem>(), s => true))
-            .ToListAsync();
+                Project.Create(x.Uuid, x.Name, x.Description, Array.Empty<ProjectPermission>(), Array.Empty<WorkItem>(), s => true));
 
         return projects;
     }
@@ -27,7 +27,7 @@ internal class ProjectsRepository(MyOssHoursDbContext dbContext) : IProjectsRepo
             .Include(x => x.Members)
             .ThenInclude(x => x.User)
             .Include(x => x.WorkItems)
-            .ThenInclude(x => x.Hours).ThenInclude(projectHourEntity => projectHourEntity.User)
+            .ThenInclude(x => x.Hours)
             .FirstOrDefaultAsync(x => x.Uuid == uuid && x.Members.Any(m => m.User.Uuid == currentUser.Uuid && m.Role > PermissionLevel.None));
         if (project is null)
             throw new UnauthorizedAccessException();

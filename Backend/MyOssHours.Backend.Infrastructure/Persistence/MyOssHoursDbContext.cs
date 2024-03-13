@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using MyOssHours.Backend.Infrastructure.Model;
+using MyOssHours.Backend.Infrastructure.Persistence.Model;
 
-namespace MyOssHours.Backend.Infrastructure;
+namespace MyOssHours.Backend.Infrastructure.Persistence;
 
 internal class MyOssHoursDbContext(DbContextOptions<MyOssHoursDbContext> options) : DbContext(options)
 {

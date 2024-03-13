@@ -2,15 +2,22 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace MyOssHours.Backend.Infrastructure.Model;
+namespace MyOssHours.Backend.Infrastructure.Persistence.Model;
 
 [Table("User")]
+[Index(nameof(Nickname), IsUnique = true)]
+[Index(nameof(Email), IsUnique = true)]
 internal class UserEntity
 {
+    [Key]
     public long Id { get; set; }
+
+    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
     public Guid Uuid { get; set; }
+
     [MaxLength(128)]
     public required string Nickname { get; set; }
+
     [MaxLength(1024)]
     public required string Email { get; set; }
 }
