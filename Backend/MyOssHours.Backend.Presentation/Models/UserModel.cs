@@ -3,5 +3,5 @@
 public class UserModel
 {
     public Guid Uuid { get; set; }
-    public string Nickname { get; set; }
+    public required string Nickname { get; set; }
 }

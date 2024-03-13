@@ -53,8 +53,8 @@ public class Project : IAggregateRoot
         var workItemsSafe = workItems?.ToArray() ?? Array.Empty<WorkItem>();
 
         var projectMembers = members as ProjectPermission[] ?? members.ToArray();
-        if (projectMembers.FirstOrDefault(x => x.Role == PermissionLevel.Owner) == null)
-            throw new ProjectHasNoOwnerException();
+        //if (projectMembers.FirstOrDefault(x => x.Role == PermissionLevel.Owner) == null)
+        //    throw new ProjectHasNoOwnerException();
         WorkItemNameValidation(workItemsSafe);
 
         return new Project(id, name, description)

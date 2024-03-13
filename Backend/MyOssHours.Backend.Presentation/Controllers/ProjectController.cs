@@ -5,25 +5,19 @@ using Microsoft.AspNetCore.Mvc;
 using MyOssHours.Backend.Application.Abstractions;
 using MyOssHours.Backend.Application.Projects;
 using MyOssHours.Backend.Presentation.Models;
-using MyOssHours.Backend.Presentation.Requests;
 
 namespace MyOssHours.Backend.Presentation.Controllers;
 
 [Route("api/v1/[controller]")]
 [Authorize()]
 [ApiController]
-public class ProjectController : ControllerBase
+public class ProjectController
+    (IMediator mediator, IMapper mapper, IUserProvider userProvider)
+    : ControllerBase
 {
-    private readonly IMapper _mapper;
-    private readonly IUserProvider _userProvider;
-    private readonly IMediator _mediator;
-
-    public ProjectController(IMediator mediator, IMapper mapper, IUserProvider userProvider)
-    {
-        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-        _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-        _userProvider = userProvider ?? throw new ArgumentNullException(nameof(userProvider));
-    }
+    private readonly IMapper _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+    private readonly IUserProvider _userProvider = userProvider ?? throw new ArgumentNullException(nameof(userProvider));
+    private readonly IMediator _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
 
     [HttpGet]
     public async Task<IEnumerable<ProjectModel>> Get([FromQuery] GetProjectsQuery query)
@@ -76,4 +70,25 @@ public class ProjectController : ControllerBase
     {
         throw new NotImplementedException();
     }
+
+    #region commands
+
+    public class CreateProjectCommand
+    {
+        public required string Name { get; set; }
+        public required string Description { get; set; }
+    }
+
+    #endregion
+
+    #region Queries
+
+    public class GetProjectsQuery
+    {
+        public int Offset { get; set; } = 0;
+        public int Size { get; set; } = 20;
+        public string? NameLike { get; set; }
+    }
+
+    #endregion
 }

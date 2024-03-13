@@ -4,25 +4,18 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyOssHours.Backend.Application.ProjectHours;
 using MyOssHours.Backend.Presentation.Models;
-using MyOssHours.Backend.Presentation.Requests;
 
 namespace MyOssHours.Backend.Presentation.Controllers;
 
 [Route("api/v1/[controller]")]
 [Authorize()]
 [ApiController]
-public class ProjectHoursController : ControllerBase
+public class ProjectHoursController
+    (IMediator mediator, IMapper mapper)
+    : ControllerBase
 {
-    private readonly IHttpContextAccessor _httpContext;
-    private readonly IMapper _mapper;
-    private readonly IMediator _mediator;
-
-    public ProjectHoursController(IMediator mediator, IMapper mapper, IHttpContextAccessor httpContext)
-    {
-        _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
-        _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
-        _httpContext = httpContext ?? throw new ArgumentNullException(nameof(httpContext));
-    }
+    private readonly IMapper _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
+    private readonly IMediator _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
 
     // POST api/<ProjectController>
     [HttpPost]
@@ -32,7 +25,7 @@ public class ProjectHoursController : ControllerBase
         {
             Project = command.Project,
             WorkItem = command.WorkItem,
-            Date = command.Date,
+            Date = DateOnly.FromDateTime(command.Date),
             Duration = TimeSpan.FromMinutes(command.DurationInMinutes),
             User = command.User,
             Description = command.Description
@@ -41,5 +34,17 @@ public class ProjectHoursController : ControllerBase
         return _mapper.Map<ProjectHourModel>(response.ProjectHour);
     }
 
+    #region Commands
 
+    public class CreateProjectHourCommand
+    {
+        public Guid Project { get; set; }
+        public Guid WorkItem { get; set; }
+        public DateTime Date { get; set; }
+        public int DurationInMinutes { get; set; }
+        public Guid User { get; set; }
+        public string? Description { get; set; }
+    }
+
+    #endregion
 }
