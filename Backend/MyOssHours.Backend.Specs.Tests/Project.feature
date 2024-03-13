@@ -15,7 +15,7 @@ A short summary of the feature
 
 @project
 Scenario: Read Project
-	Given the user alice is logged in
+	Given the user Alice is logged in
 	Given the following projects exist for user alice:
 		| name    | description    |
 		| Demo_01 | The is project demo 01 |

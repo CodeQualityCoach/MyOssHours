@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyOssHours.Backend.Application.Abstractions;
 using MyOssHours.Backend.Application.Projects;
@@ -9,6 +10,7 @@ using MyOssHours.Backend.Presentation.Requests;
 namespace MyOssHours.Backend.Presentation.Controllers;
 
 [Route("api/v1/[controller]")]
+[Authorize()]
 [ApiController]
 public class ProjectController : ControllerBase
 {
