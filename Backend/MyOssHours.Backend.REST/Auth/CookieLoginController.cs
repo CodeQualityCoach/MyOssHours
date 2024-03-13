@@ -13,10 +13,10 @@ internal class HtAccessUserVerification(ILogger<HtAccessUserVerification> logger
     public async Task<bool> Validate(string email, string password)
     {
         // todo: make the file configurable
-        if (!System.IO.File.Exists(".htaccess")) throw new FileNotFoundException($"Cannot find file .htaccess in {Environment.CurrentDirectory}");
+        if (!File.Exists(".htaccess")) throw new FileNotFoundException($"Cannot find file .htaccess in {Environment.CurrentDirectory}");
 
         var userHtAccess = (await System.IO.File.ReadAllLinesAsync(".htaccess"))
-            .FirstOrDefault(x => x.StartsWith(email.ToLower() + ":"));
+            .FirstOrDefault(x => x.ToLower().StartsWith(email.ToLower() + ":"));
         if (userHtAccess == null)
         {
             logger.LogDebug($"Cannot find user {email}");
@@ -92,7 +92,7 @@ public class CookieLoginController(IHttpContextAccessor contextAccessor, IUserVa
     }
 
     [HttpGet("Logout")]
-    [Authorize()]
+    [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
     public IActionResult Logout()
     {
         if (_contextAccessor.HttpContext is null) throw new InvalidOperationException("HttpContext is null");
@@ -102,7 +102,7 @@ public class CookieLoginController(IHttpContextAccessor contextAccessor, IUserVa
     }
 
     [HttpGet("GetCurrentUser")]
-    [Authorize()]
+    [Authorize(AuthenticationSchemes = CookieAuthenticationDefaults.AuthenticationScheme)]
     public IActionResult GetCurrentUser()
     {
         if (_contextAccessor.HttpContext is null) throw new InvalidOperationException("HttpContext is null");
