@@ -1,4 +1,6 @@
+using System.Net;
 using System.Net.Http.Json;
+using FluentAssertions;
 using TechTalk.SpecFlow;
 
 namespace MyOssHours.Backend.Specs.Tests.Shared;
@@ -16,8 +18,9 @@ public class LoginStepDefinitions(ScenarioContext context)
 
     private readonly Dictionary<string, User> _users = new()
     {
-        { "Alice", new User {  Email = "alice@localhost", Password = "password"} },
-        { "Bob", new User {  Email = "bob@localhost", Password = "password"} },
+        { "Alice", new User {  Email = "alice", Password = "password"} },
+        { "Bob", new User {  Email = "Bob", Password = "password"} },
+        { "Charlie", new User {  Email = "charlie", Password = "NotAValidPassword"} },
     };
 
     [Given(@"the user (.*) is logged in")]
@@ -30,7 +33,8 @@ public class LoginStepDefinitions(ScenarioContext context)
         var client = new HttpClient(handler);
         var user = _users[id];
         var result = await client.PostAsync($"https://localhost:10443/api/v1/CookieLogin/Login/", JsonContent.Create(user));
-        result.EnsureSuccessStatusCode();
+
+        _context["StatusCode"] = result.StatusCode;
         _context["HttpClient"] = client;
     }
 
@@ -48,6 +52,13 @@ public class LoginStepDefinitions(ScenarioContext context)
     public void ThenTheUserHasAClaimWithAnEmailAddressContaining(string id)
     {
         var result = _context.Get<string>("Result");
+    }
+
+    [Then(@"a (.*) is returned")]
+    public void ThenAUnauthorizedIsReturned(int returnCode)
+    {
+        var statusCode = _context.Get<HttpStatusCode>("StatusCode");
+        statusCode.Should().Be((HttpStatusCode)returnCode);
     }
 
 }

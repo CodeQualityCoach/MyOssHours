@@ -1,7 +1,7 @@
 using System.Net.Http.Json;
 using FluentAssertions;
+using MyOssHours.Backend.Presentation.Controllers;
 using MyOssHours.Backend.Presentation.Models;
-using MyOssHours.Backend.Presentation.Requests;
 using TechTalk.SpecFlow;
 
 namespace MyOssHours.Backend.Specs.Tests;
@@ -22,7 +22,7 @@ public class ProjectStepDefinitions
         var client = _context.Get<HttpClient>("HttpClient");
         foreach (var tableRow in table.Rows)
         {
-            var result = await client.PostAsync($"https://localhost:10443/api/v1/Project", JsonContent.Create(new CreateProjectCommand()
+            var result = await client.PostAsync($"https://localhost:10443/api/v1/Project", JsonContent.Create(new ProjectController.CreateProjectCommand()
             {
                 Name = tableRow["name"],
                 Description = tableRow["description"],
