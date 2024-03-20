@@ -76,6 +76,39 @@ namespace MyOssHours.Backend.Specs.Tests
             testRunner.CollectScenarioErrors();
         }
         
+        public virtual void FeatureBackground()
+        {
+#line 7
+#line hidden
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "name",
+                        "description",
+                        "permissions"});
+            table1.AddRow(new string[] {
+                        "Demo_01",
+                        "The is project demo 01",
+                        "alice=owner, bob=none"});
+            table1.AddRow(new string[] {
+                        "Demo_02",
+                        "This is project demo 02",
+                        "alice=owner, bob=reader"});
+            table1.AddRow(new string[] {
+                        "Demo_03",
+                        "The is project demo 03",
+                        "bob=owner, alice=none"});
+            table1.AddRow(new string[] {
+                        "Demo_04",
+                        "This is project demo 04",
+                        "bob=owner, alice=reader"});
+            table1.AddRow(new string[] {
+                        "Demo_05",
+                        "The project will be deleted",
+                        "bob=owner, alice=reader"});
+#line 8
+ testRunner.Given("the following projects exist:", ((string)(null)), table1, "Given ");
+#line hidden
+        }
+        
         void System.IDisposable.Dispose()
         {
             this.TestTearDown();
@@ -100,7 +133,7 @@ namespace MyOssHours.Backend.Specs.Tests
             argumentsOfScenario.Add("name", name);
             argumentsOfScenario.Add("id", id);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Create Project", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 10
+#line 17
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -110,13 +143,16 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 11
+#line 7
+this.FeatureBackground();
+#line hidden
+#line 18
  testRunner.Given(string.Format("The user with id \'{0}\' is logged in", id), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 12
+#line 19
  testRunner.When(string.Format("The user creates a new project with the name \'{0}\'", name), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 13
+#line 20
  testRunner.Then(string.Format("The project with the name \'{0}\' is created", name), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -133,7 +169,7 @@ this.ScenarioInitialize(scenarioInfo);
                     "project"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Read Project", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 21
+#line 28
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -143,28 +179,31 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 22
- testRunner.Given("the user Alice is logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-                TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
-                            "name",
-                            "description"});
-                table1.AddRow(new string[] {
-                            "Demo_01",
-                            "The is project demo 01"});
-                table1.AddRow(new string[] {
-                            "Demo_02",
-                            "This is project demo 02"});
-#line 23
- testRunner.Given("the following projects exist for user alice:", ((string)(null)), table1, "Given ");
-#line hidden
-#line 27
- testRunner.When("the user alice reads the existing projects", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 28
- testRunner.Then("the result contains a project with the name \'Demo_01\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 7
+this.FeatureBackground();
 #line hidden
 #line 29
+ testRunner.Given("the user Alice is logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                            "name",
+                            "description"});
+                table2.AddRow(new string[] {
+                            "Demo_01",
+                            "The is project demo 01"});
+                table2.AddRow(new string[] {
+                            "Demo_02",
+                            "This is project demo 02"});
+#line 30
+ testRunner.Given("the following projects exist for user alice:", ((string)(null)), table2, "Given ");
+#line hidden
+#line 34
+ testRunner.When("the user alice reads the existing projects", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 35
+ testRunner.Then("the result contains a project with the name \'Demo_01\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 36
  testRunner.Then("the result contains a project with the name \'Demo_02\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -181,7 +220,7 @@ this.ScenarioInitialize(scenarioInfo);
                     "project"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Delete Project", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 32
+#line 39
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -191,28 +230,31 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 33
- testRunner.Given("the user Alice is logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
-                            "name",
-                            "description"});
-                table2.AddRow(new string[] {
-                            "Demo_01",
-                            "The is project demo 01"});
-                table2.AddRow(new string[] {
-                            "Demo_02",
-                            "This is project demo 02"});
-#line 34
- testRunner.Given("the following projects exist for user alice:", ((string)(null)), table2, "Given ");
-#line hidden
-#line 38
- testRunner.When("the user alice deletes the project with the name \'Demo_02\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 39
- testRunner.Then("the result contains a project with the name \'Demo_01\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 7
+this.FeatureBackground();
 #line hidden
 #line 40
+ testRunner.Given("the user Alice is logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                            "name",
+                            "description"});
+                table3.AddRow(new string[] {
+                            "Demo_01",
+                            "The is project demo 01"});
+                table3.AddRow(new string[] {
+                            "Demo_02",
+                            "This is project demo 02"});
+#line 41
+ testRunner.Given("the following projects exist for user alice:", ((string)(null)), table3, "Given ");
+#line hidden
+#line 45
+ testRunner.When("the user alice deletes the project with the name \'Demo_02\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 46
+ testRunner.Then("the result contains a project with the name \'Demo_01\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 47
  testRunner.Then("the result does not contain a project with the name \'Demo_02\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -229,7 +271,7 @@ this.ScenarioInitialize(scenarioInfo);
                     "project"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Cannot Delete Project without owner permission", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 43
+#line 50
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -239,31 +281,34 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 44
- testRunner.Given("the user Alice is logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 7
+this.FeatureBackground();
 #line hidden
-                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
-                            "name",
-                            "description"});
-                table3.AddRow(new string[] {
-                            "Demo_01",
-                            "The is project demo 01"});
-#line 45
- testRunner.Given("the following projects exist for user alice:", ((string)(null)), table3, "Given ");
+#line 51
+ testRunner.Given("the user Alice is logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
                 TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
                             "name",
                             "description"});
                 table4.AddRow(new string[] {
+                            "Demo_01",
+                            "The is project demo 01"});
+#line 52
+ testRunner.Given("the following projects exist for user alice:", ((string)(null)), table4, "Given ");
+#line hidden
+                TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                            "name",
+                            "description"});
+                table5.AddRow(new string[] {
                             "Demo_02",
                             "This is project demo 02"});
-#line 48
- testRunner.Given("the following projects exist for user bob:", ((string)(null)), table4, "Given ");
+#line 55
+ testRunner.Given("the following projects exist for user bob:", ((string)(null)), table5, "Given ");
 #line hidden
-#line 51
+#line 58
  testRunner.When("the user alice deletes the project with the name \'Demo_02\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 52
+#line 59
  testRunner.Then("a 403 is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -280,7 +325,7 @@ this.ScenarioInitialize(scenarioInfo);
                     "project"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Read projects I have permissions for", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 55
+#line 62
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -290,49 +335,52 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 56
+#line 7
+this.FeatureBackground();
+#line hidden
+#line 63
  testRunner.Given("the user Alice is logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line hidden
-                TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
-                            "name",
-                            "description"});
-                table5.AddRow(new string[] {
-                            "Demo_01",
-                            "The is project demo 01"});
-                table5.AddRow(new string[] {
-                            "Demo_02",
-                            "This is project demo 02"});
-#line 57
- testRunner.Given("the following projects exist for user alice:", ((string)(null)), table5, "Given ");
-#line hidden
-#line 61
- testRunner.Given("the user Bob is logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
                 TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                             "name",
                             "description"});
                 table6.AddRow(new string[] {
-                            "Demo_03",
-                            "The is project demo 03"});
+                            "Demo_01",
+                            "The is project demo 01"});
                 table6.AddRow(new string[] {
-                            "Demo_04",
-                            "This is project demo 04"});
-#line 62
- testRunner.Given("the following projects exist for user bob:", ((string)(null)), table6, "Given ");
-#line hidden
-#line 66
- testRunner.When("the user alice reads the existing projects", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 67
- testRunner.Then("the result contains a project with the name \'Demo_01\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+                            "Demo_02",
+                            "This is project demo 02"});
+#line 64
+ testRunner.Given("the following projects exist for user alice:", ((string)(null)), table6, "Given ");
 #line hidden
 #line 68
+ testRunner.Given("the user Bob is logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+                TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                            "name",
+                            "description"});
+                table7.AddRow(new string[] {
+                            "Demo_03",
+                            "The is project demo 03"});
+                table7.AddRow(new string[] {
+                            "Demo_04",
+                            "This is project demo 04"});
+#line 69
+ testRunner.Given("the following projects exist for user bob:", ((string)(null)), table7, "Given ");
+#line hidden
+#line 73
+ testRunner.When("the user alice reads the existing projects", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 74
+ testRunner.Then("the result contains a project with the name \'Demo_01\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+#line 75
  testRunner.Then("the result contains a project with the name \'Demo_02\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 69
+#line 76
  testRunner.Then("the result does not contain a project with the name \'Demo_03\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 70
+#line 77
  testRunner.Then("the result does not contain a project with the name \'Demo_04\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

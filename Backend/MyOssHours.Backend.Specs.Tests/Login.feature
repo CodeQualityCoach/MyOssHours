@@ -9,7 +9,7 @@ Charlie has invalid credentials
 
 @login
 Scenario Outline: Login with valid credentials
-	When the user <id> is logged in
+	When the user '<id>' is logged in
 	Then a 200 is returned
 
 Examples:
@@ -19,7 +19,7 @@ Examples:
 
 @login
 Scenario: Login with invalid credentials
-	When the user <id> is logged in
+	When the user '<id>' is logged in
 	Then a 401 is returned
 
 Examples:
@@ -29,10 +29,10 @@ Examples:
 
 @login
 Scenario Outline: Get user information after login
-	Given the user <id> is logged in
+	Given the user '<id>' is logged in
 	When the user information is requested
 	Then a 200 is returned
-	And the user has a claim with an email address containing <id>
+	And the user has a claim with an email address containing '<id>'
 
 Examples:
 	| id    |

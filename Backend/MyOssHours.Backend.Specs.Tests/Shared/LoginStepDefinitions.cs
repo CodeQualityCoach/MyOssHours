@@ -8,6 +8,7 @@ namespace MyOssHours.Backend.Specs.Tests.Shared;
 [Binding]
 public class LoginStepDefinitions(ScenarioContext context)
 {
+    private static readonly Settings Settings = Settings.Load();
     private readonly ScenarioContext _context = context ?? throw new ArgumentNullException(nameof(context));
 
     private class User
@@ -34,12 +35,14 @@ public class LoginStepDefinitions(ScenarioContext context)
         return client;
     }
 
-    [Given(@"the user {string} is logged in")]
+    [Given(@"the user '([^']*)' is logged in")]
+    [When(@"the user '([^']*)' is logged in")]
+    // NOT WORKING [When( @"the user {string} is logged in")]
     public async Task GivenTheUserWithIdIsLoggedIn(string id)
     {
         var client = CreateHttpClient();
         var user = _users[id];
-        var result = await client.PostAsync($"https://localhost:10443/api/v1/CookieLogin/Login/", JsonContent.Create(user));
+        var result = await client.PostAsync($"{Settings.Endpoint}v1/CookieLogin/Login/", JsonContent.Create(user));
 
         _context["StatusCode"] = result.StatusCode;
         _context["HttpClient"] = client;
@@ -52,20 +55,22 @@ public class LoginStepDefinitions(ScenarioContext context)
             ? _context.Get<HttpClient>("HttpClient")
             : CreateHttpClient();
 
-        var result = await client.GetAsync($"https://localhost:10443/api/v1/CookieLogin/GetCurrentUser");
+        var result = await client.GetAsync($"{Settings.Endpoint}v1/CookieLogin/GetCurrentUser");
 
         _context["StatusCode"] = result.StatusCode;
         _context["Result"] = await result.Content.ReadAsStringAsync();
     }
 
-    [Then(@"the user has a claim with an email address containing {string}")]
+    [Then(@"the user has a claim with an email address containing '([^']*)'")]
+    // NOT WORKING [Then(@"the user has a claim with an email address containing {string}")]
     public void ThenTheUserHasAClaimWithAnEmailAddressContaining(string id)
     {
         var result = _context.Get<string>("Result");
         result.Should().Contain(_users[id].Email);
     }
-
-    [Then(@"a {int} is returned")]
+    
+    [Then(@"a (.*) is returned")]
+    // NOT WORKING [Then(@"a {int} is returned")]
     public void ThenAStatusCodeIsReturned(int returnCode)
     {
         var statusCode = _context.Get<HttpStatusCode>("StatusCode");

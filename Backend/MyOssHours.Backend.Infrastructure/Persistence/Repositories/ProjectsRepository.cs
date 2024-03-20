@@ -8,7 +8,9 @@ namespace MyOssHours.Backend.Infrastructure.Persistence.Repositories;
 
 internal class ProjectsRepository(MyOssHoursDbContext dbContext) : IProjectsRepository
 {
+#pragma warning disable CS1998 // Async method lacks 'await' operators and will run synchronously
     public async Task<IEnumerable<Project>> GetProjects(UserId currentUser, int offset = 0, int size = 20)
+#pragma warning restore CS1998 // Async method lacks 'await' operators and will run synchronously
     {
         var projects = dbContext.Projects
             .Where(x => x.Members.Any(m => m.User.Uuid == currentUser.Uuid && m.Role > PermissionLevel.None))

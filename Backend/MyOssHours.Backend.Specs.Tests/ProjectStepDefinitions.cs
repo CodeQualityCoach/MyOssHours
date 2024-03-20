@@ -1,5 +1,6 @@
 using System.Net.Http.Json;
 using FluentAssertions;
+using MyOssHours.Backend.Specs.Tests.Shared;
 using TechTalk.SpecFlow;
 
 namespace MyOssHours.Backend.Specs.Tests;
@@ -7,6 +8,7 @@ namespace MyOssHours.Backend.Specs.Tests;
 [Binding]
 public class ProjectStepDefinitions
 {
+    private static readonly Settings Settings = Settings.Load();
     private readonly ScenarioContext _context;
 
     public ProjectStepDefinitions(ScenarioContext context)
@@ -20,7 +22,7 @@ public class ProjectStepDefinitions
         var client = _context.Get<HttpClient>("HttpClient");
         foreach (var tableRow in table.Rows)
         {
-            var result = await client.PostAsync($"https://localhost:10443/api/v1/Project", 
+            var result = await client.PostAsync($"{Settings.Endpoint}v1/Project", 
                 JsonContent.Create(new 
             {
                 Name = tableRow["name"],
@@ -47,7 +49,7 @@ public class ProjectStepDefinitions
     public async Task WhenTheUserReadsExistingProjects(string user)
     {
         var client = _context.Get<HttpClient>("HttpClient");
-        var result = await client.GetAsync($"https://localhost:6003/api/v1/Project");
+        var result = await client.GetAsync($"{Settings.Endpoint}v1/Project");
         result.EnsureSuccessStatusCode();
 
         // todo fixme

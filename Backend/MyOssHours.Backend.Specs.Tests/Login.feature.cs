@@ -111,7 +111,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 12
- testRunner.When(string.Format("the user {0} is logged in", id), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("the user \'{0}\' is logged in", id), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 13
  testRunner.Then("a 200 is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -149,7 +149,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 22
- testRunner.When(string.Format("the user {0} is logged in", id), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When(string.Format("the user \'{0}\' is logged in", id), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 23
  testRunner.Then("a 401 is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
@@ -187,7 +187,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 32
- testRunner.Given(string.Format("the user {0} is logged in", id), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given(string.Format("the user \'{0}\' is logged in", id), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 33
  testRunner.When("the user information is requested", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
@@ -196,7 +196,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("a 200 is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 35
- testRunner.And(string.Format("the user has a claim with an email address containing {0}", id), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("the user has a claim with an email address containing \'{0}\'", id), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();
