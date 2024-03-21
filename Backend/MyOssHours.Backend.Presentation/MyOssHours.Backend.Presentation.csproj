@@ -22,6 +22,7 @@
   <ItemGroup>
     <ProjectReference Include="..\MyOssHours.Backend.Application\MyOssHours.Backend.Application.csproj" />
     <ProjectReference Include="..\MyOssHours.Backend.Domain\MyOssHours.Backend.Domain.csproj" />
+    <ProjectReference Include="..\MyOssHours.Backend.Presentation.Contracts\ClassLibrary1\MyOssHours.Backend.Presentation.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

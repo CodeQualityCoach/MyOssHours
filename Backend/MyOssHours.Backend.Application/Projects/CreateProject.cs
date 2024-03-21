@@ -30,7 +30,7 @@ public static class CreateProject
     public class Command : IRequest<Response>
     {
         public required string Name { get; set; }
-        public required string Description { get; set; }
+        public string? Description { get; set; }
         public required UserId Owner { get; set; }
     }
 

@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using MyOssHours.Backend.Domain.Core;
+﻿using MyOssHours.Backend.Domain.Core;
 using MyOssHours.Backend.Domain.Users;
 
 namespace MyOssHours.Backend.Domain.Projects;

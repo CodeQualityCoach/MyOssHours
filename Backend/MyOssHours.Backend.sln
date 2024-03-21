@@ -25,6 +25,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyOssHours.Backend.Architec
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MyOssHours.Backend.Specs.Tests", "MyOssHours.Backend.Specs.Tests\MyOssHours.Backend.Specs.Tests.csproj", "{64EC2F92-FF2B-4FE4-943C-C4E5200E4F70}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MyOssHours.Backend.Presentation.Contracts", "MyOssHours.Backend.Presentation.Contracts\ClassLibrary1\MyOssHours.Backend.Presentation.Contracts.csproj", "{25AD5A00-7E1C-4810-B256-266412C8465D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -67,6 +69,10 @@ Global
 		{64EC2F92-FF2B-4FE4-943C-C4E5200E4F70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64EC2F92-FF2B-4FE4-943C-C4E5200E4F70}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64EC2F92-FF2B-4FE4-943C-C4E5200E4F70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{25AD5A00-7E1C-4810-B256-266412C8465D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{25AD5A00-7E1C-4810-B256-266412C8465D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{25AD5A00-7E1C-4810-B256-266412C8465D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{25AD5A00-7E1C-4810-B256-266412C8465D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -80,6 +86,7 @@ Global
 		{667E676B-9B4A-4FC0-87E9-9AB86EE2C675} = {9ABF473F-5A67-49EB-BDBF-A6407FDA2DAA}
 		{8F26A1B7-4467-4119-A255-AF25CE70F747} = {C93AAB63-360C-4F6D-946A-245C55A5A1C1}
 		{64EC2F92-FF2B-4FE4-943C-C4E5200E4F70} = {C93AAB63-360C-4F6D-946A-245C55A5A1C1}
+		{25AD5A00-7E1C-4810-B256-266412C8465D} = {9ABF473F-5A67-49EB-BDBF-A6407FDA2DAA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {5A77F52F-196D-4E6D-A7BE-5C47E9CB077E}

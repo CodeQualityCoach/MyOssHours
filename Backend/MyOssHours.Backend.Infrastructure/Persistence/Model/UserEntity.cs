@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 namespace MyOssHours.Backend.Infrastructure.Persistence.Model;
 
 [Table("User")]
-[Index(nameof(Nickname), IsUnique = true)]
+[Index(nameof(Nickname), IsUnique = false)]
 [Index(nameof(Email), IsUnique = true)]
 internal class UserEntity
 {

@@ -1,4 +1,4 @@
-﻿namespace MyOssHours.Backend.Presentation.Models;
+﻿namespace MyOssHours.Backend.Presentation.Contracts.Models;
 
 public class ProjectHourModel
 {

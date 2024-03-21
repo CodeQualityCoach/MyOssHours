@@ -1,10 +1,9 @@
-﻿using System.Globalization;
-using AutoMapper;
+﻿using AutoMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyOssHours.Backend.Application.WorkItems;
-using MyOssHours.Backend.Presentation.Models;
+using MyOssHours.Backend.Presentation.Contracts.Models;
 
 namespace MyOssHours.Backend.Presentation.Controllers;
 

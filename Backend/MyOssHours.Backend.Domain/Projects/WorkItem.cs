@@ -43,7 +43,7 @@ public class WorkItem
         return new WorkItem(id, project, name, description, projectHours);
     }
 
-    internal ProjectHour CreateProjectHour(WorkItemId workItem, UserId user, DateOnly date, TimeSpan duration, string description)
+    internal ProjectHour CreateProjectHour(WorkItemId workItem, UserId user, DateOnly date, TimeSpan duration, string? description)
     {
         var result = ProjectHour.Create(Uuid, user, date, duration, description);
         _projectHours.Add(result);

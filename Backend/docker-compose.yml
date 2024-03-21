@@ -16,6 +16,7 @@ services:
     - "8443:8443"
     volumes:
     - ${WEBCERTIFICATE_FILE:?error}:/https/webcertificate.pfx:ro
+    - ${HTACCESS:?error}:/app/.htaccess:ro
 
   mssql:
     image: mcr.microsoft.com/mssql/server:2019-latest
