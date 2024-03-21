@@ -25,7 +25,10 @@ services:
 #    ports:
 #    - 4433:1433 # make sense to open this to use SSMS
     volumes:
-    - ${DOCKER_TEMP_FOLDER}mssql/data:/var/lib/mssql/data
+#    - ${DOCKER_TEMP_FOLDER}mssql/data:/var/lib/mssql/data
+    - ${DOCKER_TEMP_FOLDER}mssql/data/:/var/opt/mssql/data/
+    - ${DOCKER_TEMP_FOLDER}mssql/log/:/var/opt/mssql/log/
+    - ${DOCKER_TEMP_FOLDER}mssql/secrets/:/var/opt/mssql/secrets/
     healthcheck:
         test: ["CMD-SHELL", "/opt/mssql-tools/bin/sqlcmd -S localhost -U SA -P ${SA_PASSWORD} -Q 'SELECT 1' || exit 1"]
         interval: 10s
