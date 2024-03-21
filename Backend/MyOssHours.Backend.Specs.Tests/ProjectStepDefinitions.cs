@@ -51,8 +51,9 @@ public class ProjectStepDefinitions(ScenarioContext context)
         var initProject = _context.Get<IEnumerable<BackgroundStepDefinitions.ProjectTestDto>>("InitProjects")
             .First(x=>x.Name.StartsWith(projectName + "_"));
 
-        var projects = _context.Get<IEnumerable<ProjectModel>>("ReturnedProjects");
-        projects.Should().Contain(p => p.Name == initProject.Name);
+        var projects = _context.Get<IEnumerable<ProjectModel>>("ReturnedProjects").Where(p => p.Name.StartsWith(projectName));
+        var project = projects.FirstOrDefault(p => p.Name == initProject.Name);
+        project.Should().NotBeNull();
     }
 
     [Then(@"the result does not contain a project with the name '([^']*)'")]
@@ -61,8 +62,9 @@ public class ProjectStepDefinitions(ScenarioContext context)
         var initProject = _context.Get<IEnumerable<BackgroundStepDefinitions.ProjectTestDto>>("InitProjects")
             .First(x => x.Name.StartsWith(projectName + "_"));
 
-        var projects = _context.Get<IEnumerable<ProjectModel>>("ReturnedProjects");
-        projects.Should().NotContain(p => p.Name == initProject.Name);
+        var projects = _context.Get<IEnumerable<ProjectModel>>("ReturnedProjects").Where(p=>p.Name.StartsWith(projectName));
+        var project = projects.FirstOrDefault(p => p.Name == initProject.Name);
+        project.Should().BeNull();
     }
 
     [When(@"the user deletes the project '([^']*)'")]
