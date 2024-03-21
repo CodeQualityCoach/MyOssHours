@@ -15,36 +15,37 @@ Background:
 
 @project
 Scenario Outline: Create Project
-	Given The user with id '<id>' is logged in
-	When The user creates a new project with the name '<name>'
-	Then The project with the name '<name>' is created
+	Given the user '<id>' is logged in
+	When the user creates a new project with the name '<name>'
+	Then a 200 is returned
+	And the project with the name '<name>' is created
 
 Examples:
 	| name    | id    |
-	| Demo_01 | alice |
-	| Demo_02 | bob   |
+	| Demo_11 | alice |
+	| Demo_12 | bob   |
 
 @project
-Scenario Outline: Read Project
-	Given the user Alice is logged in
-	Given the following projects exist for user alice:
-		| name    | description             |
-		| Demo_01 | The is project demo 01  |
-		| Demo_02 | This is project demo 02 |
-	When the user alice reads the existing projects
+Scenario Outline: Read My Projects
+	Given the user 'alice' is logged in
+	When the user reads the existing projects
 	Then the result contains a project with the name 'Demo_01'
-	Then the result contains a project with the name 'Demo_02'
+	And the result does not contain a project with the name 'Demo_03'
+	And the result contains a project with the name 'Demo_04'
+
+Scenario Outline: Cannot Read Others Projects
+	Given the user 'alice' is logged in
+	When the user reads the existing projects
+	Then the result does not contain a project with the name 'Demo_03'
 
 @project
 Scenario Outline: Delete Project
-	Given the user Alice is logged in
-	Given the following projects exist for user alice:
-		| name    | description             |
-		| Demo_01 | The is project demo 01  |
-		| Demo_02 | This is project demo 02 |
-	When the user alice deletes the project with the name 'Demo_02'
-	Then the result contains a project with the name 'Demo_01'
-	Then the result does not contain a project with the name 'Demo_02'
+	Given the user 'bob' is logged in
+	When the user deletes the project 'Demo_02'
+	Then a 200 is returned
+	# @Peter: How to handle this??
+	And the user reads the existing projects
+	And the result does not contain a project with the name 'Demo_02'
 
 @project
 Scenario: Cannot Delete Project without owner permission

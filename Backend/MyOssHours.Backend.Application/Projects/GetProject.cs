@@ -1,7 +1,6 @@
 ﻿using MediatR;
 using MyOssHours.Backend.Application.Abstractions;
 using MyOssHours.Backend.Domain.Projects;
-using MyOssHours.Backend.Domain.Users;
 
 namespace MyOssHours.Backend.Application.Projects;
 

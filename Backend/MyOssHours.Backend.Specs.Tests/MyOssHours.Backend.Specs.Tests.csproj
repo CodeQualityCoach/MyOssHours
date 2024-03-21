@@ -25,6 +25,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\MyOssHours.Backend.Presentation.Contracts\ClassLibrary1\MyOssHours.Backend.Presentation.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="specflow.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

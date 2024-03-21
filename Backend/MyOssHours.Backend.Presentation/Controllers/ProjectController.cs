@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using MyOssHours.Backend.Application.Abstractions;
 using MyOssHours.Backend.Application.Projects;
-using MyOssHours.Backend.Presentation.Models;
+using MyOssHours.Backend.Presentation.Contracts.Models;
 
 namespace MyOssHours.Backend.Presentation.Controllers;
 
@@ -76,7 +76,7 @@ public class ProjectController
     public class CreateProjectCommand
     {
         public required string Name { get; set; }
-        public required string Description { get; set; }
+        public string? Description { get; set; }
     }
 
     #endregion

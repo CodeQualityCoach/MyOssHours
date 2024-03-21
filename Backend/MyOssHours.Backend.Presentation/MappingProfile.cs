@@ -1,7 +1,7 @@
 using AutoMapper;
 using MyOssHours.Backend.Domain.Projects;
 using MyOssHours.Backend.Domain.Users;
-using MyOssHours.Backend.Presentation.Models;
+using MyOssHours.Backend.Presentation.Contracts.Models;
 
 namespace MyOssHours.Backend.Presentation;
 

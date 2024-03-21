@@ -1,5 +1,4 @@
 ﻿using System.Reflection;
-using System.Xml.Linq;
 using FluentAssertions;
 using MyOssHours.Backend.Domain.Core;
 using MyOssHours.Backend.Domain.Projects;

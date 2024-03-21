@@ -196,7 +196,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.Then("a 200 is returned", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 35
- testRunner.And(string.Format("the user has a claim with an email address containing \'{0}\'", id), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And(string.Format("the user \'{0}\' has a claim containing his email address", id), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             }
             this.ScenarioCleanup();

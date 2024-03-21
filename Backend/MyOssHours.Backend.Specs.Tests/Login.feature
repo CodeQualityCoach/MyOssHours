@@ -32,7 +32,7 @@ Scenario Outline: Get user information after login
 	Given the user '<id>' is logged in
 	When the user information is requested
 	Then a 200 is returned
-	And the user has a claim with an email address containing '<id>'
+	And the user '<id>' has a claim containing his email address 
 
 Examples:
 	| id    |
