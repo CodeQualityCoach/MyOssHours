@@ -27,16 +27,18 @@ public class BackgroundStepDefinitions(ScenarioContext context)
         var project = table.CreateSet<ProjectTestDto>();
         foreach (var p in project)
         {
-            p.PermissionDict = p.Permissions.Split(',').Select(s => s.Split('=')).ToDictionary(s => s[0], s => s[1]);
-            p.Name += "_" + Guid.NewGuid();
             var tempClient = ClientFactory.CreateHttpClient();
             var owner = p.PermissionDict.FirstOrDefault(x => x.Value == "owner");
             var loginResult = await ClientFactory.Login(tempClient, owner.Key);
             loginResult.EnsureSuccessStatusCode();
 
+            if (ProjectExists(p)) continue;
+
+            p.PermissionDict = p.Permissions.Split(',').Select(s => s.Split('=')).ToDictionary(s => s[0], s => s[1]);
+            p.Name += "_" + Guid.NewGuid();
             var projectResult = await tempClient.PostAsync(
-                $"{Settings.Endpoint}v1/Project",
-                JsonContent.Create(new { p.Name, p.Description }));
+                  $"{Settings.Endpoint}v1/Project",
+                  JsonContent.Create(new { p.Name, p.Description }));
             projectResult.EnsureSuccessStatusCode();
             var returnedProject = await projectResult.Content.ReadFromJsonAsync<ProjectModel>() ?? throw new ArgumentException("Result cannot be converted as project");
             p.Uuid = returnedProject.Uuid;
@@ -49,5 +51,10 @@ public class BackgroundStepDefinitions(ScenarioContext context)
         }
 
         _context["InitProjects"] = project;
+    }
+
+    private bool ProjectExists(ProjectTestDto projectTestDto)
+    {
+        return false;
     }
 }

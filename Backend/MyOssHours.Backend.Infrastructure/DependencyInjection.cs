@@ -28,7 +28,8 @@ public static class DependencyInjection
     {
         var scope = services.CreateScope();
         var db = scope.ServiceProvider.GetRequiredService<MyOssHoursDbContext>();
-        db.Database.EnsureCreated();
+
+        //db.Database.EnsureCreated();
         db.Database.Migrate();
         scope.Dispose();
     }

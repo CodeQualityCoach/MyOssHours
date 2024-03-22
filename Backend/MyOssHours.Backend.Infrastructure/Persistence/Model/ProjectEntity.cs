@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace MyOssHours.Backend.Infrastructure.Persistence.Model;
 
 [Table("Project")]
-internal class ProjectEntity
+public class ProjectEntity
 {
     [Key]
     public long Id { get; set; }

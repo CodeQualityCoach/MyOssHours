@@ -14,15 +14,11 @@ public static class CookieAndHtaccessAuthStartup
         });
 
         services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie(options =>
-            {
-                //options.LoginPath = new PathString("/api/v1/CookieLogin/login");
-                //options.LogoutPath = new PathString("/api/v1/CookieLogin/logout");
-            });
+            .AddCookie();
 
         services.AddMvc().AddControllersAsServices();
         services.AddScoped<CookieLoginController>();
-        services.AddScoped<IUserValidator, HtAccessUserVerification>();
+
         return services;
     }
 

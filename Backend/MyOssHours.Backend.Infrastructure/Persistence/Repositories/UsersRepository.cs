@@ -12,7 +12,7 @@ internal class UsersRepository(MyOssHoursDbContext dbContext) : IUserRepository
         // todo validation. nickname, email are unique
         // find user in database and return if available
         var user = await dbContext.Users.FirstOrDefaultAsync(x => x.Email.ToLower() == email.ToLower());
-        if (user != null) return User.Create(user.Uuid, user.Nickname, user.Email, s => true, s => true);
+        if (user != null) return User.Create(user.Uuid, user.Nickname ?? user.Email, user.Email, s => true, s => true);
 
         // create user
         user = new UserEntity

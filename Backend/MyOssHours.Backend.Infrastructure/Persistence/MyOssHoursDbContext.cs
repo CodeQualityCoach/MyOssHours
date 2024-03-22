@@ -3,7 +3,7 @@ using MyOssHours.Backend.Infrastructure.Persistence.Model;
 
 namespace MyOssHours.Backend.Infrastructure.Persistence;
 
-internal class MyOssHoursDbContext(DbContextOptions<MyOssHoursDbContext> options) : DbContext(options)
+public class MyOssHoursDbContext(DbContextOptions<MyOssHoursDbContext> options) : DbContext(options)
 {
     public required DbSet<ProjectEntity> Projects { get; set; }
     public required DbSet<ProjectHourEntity> ProjectHours { get; set; }
@@ -11,15 +11,9 @@ internal class MyOssHoursDbContext(DbContextOptions<MyOssHoursDbContext> options
     public required DbSet<WorkItemEntity> WorkItems { get; set; }
     public required DbSet<UserEntity> Users { get; set; }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
-        modelBuilder.Entity<ProjectEntity>().ToTable("Project");
-        modelBuilder.Entity<ProjectHourEntity>().ToTable("ProjectHour");
-        modelBuilder.Entity<ProjectPermissionEntity>().ToTable("ProjectPermission");
-        modelBuilder.Entity<WorkItemEntity>().ToTable("WorkItem");
-        modelBuilder.Entity<UserEntity>()
-            .HasIndex(x => x.Email).IsUnique();
-        modelBuilder.Entity<UserEntity>()
-            .HasIndex(x => x.Nickname).IsUnique();
+        //if (!optionsBuilder.IsConfigured)
+        //    optionsBuilder.UseSqlite();
     }
 }

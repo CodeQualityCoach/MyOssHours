@@ -98,7 +98,7 @@ public class Project : IAggregateRoot
         return result;
     }
 
-    public WorkItem AddWorkItem(WorkItemId uuId, string name, string description)
+    public WorkItem AddWorkItem(WorkItemId uuId, string name, string? description)
     {
         var workItem = WorkItem.Create(uuId, Uuid, name, description);
         _workItems.Add(workItem);

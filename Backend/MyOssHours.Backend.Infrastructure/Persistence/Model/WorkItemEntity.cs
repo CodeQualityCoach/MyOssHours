@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace MyOssHours.Backend.Infrastructure.Persistence.Model;
 
 [Table("WorkItem")]
-internal class WorkItemEntity
+public class WorkItemEntity
 {
     [Key]
     public long Id { get; set; }
@@ -16,7 +16,7 @@ internal class WorkItemEntity
     public required string Name { get; set; }
 
     [MaxLength(1024)]
-    public required string Description { get; set; }
+    public string? Description { get; set; }
 
     public required ProjectEntity Project { get; set; }
 

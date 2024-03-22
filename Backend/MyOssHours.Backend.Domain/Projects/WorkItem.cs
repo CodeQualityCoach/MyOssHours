@@ -11,7 +11,7 @@ public class WorkItem
 
     private WorkItem(
         WorkItemId id, ProjectId project,
-        string name, string description,
+        string name, string? description,
         IEnumerable<ProjectHour>? projectHours)
     {
         Uuid = id;
@@ -26,7 +26,7 @@ public class WorkItem
     public WorkItemId Uuid { get; }
     public ProjectId Project { get; }
     public string Name { get; }
-    public string Description { get; }
+    public string? Description { get; }
     public IEnumerable<ProjectHour> ProjectHours => _projectHours.AsReadOnly();
 
     internal static WorkItem Create(ProjectId project, string name, string description, IEnumerable<ProjectHour>? projectHours = null)
@@ -34,7 +34,7 @@ public class WorkItem
         return Create(new WorkItemId(), project, name, description, projectHours);
     }
 
-    internal static WorkItem Create(WorkItemId id, ProjectId project, string name, string description, IEnumerable<ProjectHour>? projectHours = null)
+    internal static WorkItem Create(WorkItemId id, ProjectId project, string name, string? description, IEnumerable<ProjectHour>? projectHours = null)
     {
         if (id is null) throw new ArgumentNullException(nameof(id));
         if (project is null) throw new ArgumentNullException(nameof(project));

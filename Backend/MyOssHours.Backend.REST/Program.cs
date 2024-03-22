@@ -15,8 +15,7 @@ builder.Services.AddLogging();
 builder.Logging.AddConsole();
 
 // Add services to the container.
-
-CookieAndHtaccessAuthStartup.AddCookieAuth(builder.Services);
+builder.AddAuth();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

@@ -5,7 +5,7 @@ using MyOssHours.Backend.Domain.Projects;
 namespace MyOssHours.Backend.Infrastructure.Persistence.Model;
 
 [Table("ProjectPermission")]
-internal class ProjectPermissionEntity
+public class ProjectPermissionEntity
 {
     [Key]
     public long Id { get; set; }

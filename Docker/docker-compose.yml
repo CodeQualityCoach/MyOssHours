@@ -10,7 +10,7 @@ services:
     - Kestrel__Certificates__Default__Path=/https/webcertificate.pfx
     - Kestrel__Certificates__Default__Password=${WEBCERTIFICATE_PWD:?error}
     ports:
-    - "10443:8443"
+    - "10080:8080"
     volumes:
     - ${WEBCERTIFICATE_FILE:?error}:/https/webcertificate.pfx:ro
     - ./.htaccess:/app/.htaccess:ro
