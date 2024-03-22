@@ -27,6 +27,8 @@ public class BackgroundStepDefinitions(ScenarioContext context)
         var project = table.CreateSet<ProjectTestDto>();
         foreach (var p in project)
         {
+            p.PermissionDict = p.Permissions.Split(',').Select(s => s.Split('=')).ToDictionary(s => s[0], s => s[1]);
+
             var tempClient = ClientFactory.CreateHttpClient();
             var owner = p.PermissionDict.FirstOrDefault(x => x.Value == "owner");
             var loginResult = await ClientFactory.Login(tempClient, owner.Key);
@@ -34,7 +36,6 @@ public class BackgroundStepDefinitions(ScenarioContext context)
 
             if (ProjectExists(p)) continue;
 
-            p.PermissionDict = p.Permissions.Split(',').Select(s => s.Split('=')).ToDictionary(s => s[0], s => s[1]);
             p.Name += "_" + Guid.NewGuid();
             var projectResult = await tempClient.PostAsync(
                   $"{Settings.Endpoint}v1/Project",

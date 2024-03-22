@@ -8,8 +8,6 @@
 
         public class CookieSettings
         {
-
-
         }
 
         public class ValidatorSettings

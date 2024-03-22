@@ -2,7 +2,7 @@
 
 namespace MyOssHours.Backend.REST.Auth;
 
-public static class CookieAndHtaccessAuthStartup
+public static class CookieAuthStartup
 {
     public static IServiceCollection AddCookieAuth(IServiceCollection services)
     {
@@ -14,7 +14,19 @@ public static class CookieAndHtaccessAuthStartup
         });
 
         services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
-            .AddCookie();
+            .AddCookie(options =>
+            {
+                options.Events.OnRedirectToAccessDenied = context =>
+                {
+                    context.Response.StatusCode = 403;
+                    return Task.CompletedTask;
+                };
+                options.Events.OnRedirectToLogin = context =>
+                {
+                    context.Response.StatusCode = 401;
+                    return Task.CompletedTask;
+                };                                      
+            });
 
         services.AddMvc().AddControllersAsServices();
         services.AddScoped<CookieLoginController>();

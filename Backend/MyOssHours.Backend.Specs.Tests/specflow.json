@@ -1,4 +1,4 @@
 {
   "$schema": "https://specflow.org/specflow-config.json",
-  "Endpoint": "https://localhost:8443/api/"
+  "Endpoint": "http://localhost:8080/api/"
 }

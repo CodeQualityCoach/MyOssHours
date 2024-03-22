@@ -13,7 +13,7 @@ public static class AuthExtensions
         }
 
         if (setting?.Type == "Cookie")
-            CookieAndHtaccessAuthStartup.AddCookieAuth(builder.Services);
+            CookieAuthStartup.AddCookieAuth(builder.Services);
 
         // todo learn me
         //builder.Services.AddAuthorization(options =>

@@ -36,7 +36,7 @@ app.Services.UseInfrastructure();
 
 app.UseHttpsRedirection();
 
-CookieAndHtaccessAuthStartup.UseCookieAuth(app);
+CookieAuthStartup.UseCookieAuth(app);
 
 app.MapControllers();
 
